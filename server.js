@@ -1,10 +1,18 @@
 /* ---- Dependencies ---- */
 const express = require('express');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 const mountAPIRoutes = require('./routes');
+const passport = require('passport');
+const mountAuth = require('./auth');
 
 /* ---- Initial Setup ---- */
 const app = express();
+
+// Parse all request bodies to JSON
+// When posting use "content-type: application/x-www-form-urlencoded"
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // log every HTTP request to the console when in development
 if (process.env.NODE_ENV === 'development') {
@@ -36,7 +44,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-mountAPIRoutes(app);
+// Setup authentication
+mountAuth(passport);
+
+mountAPIRoutes(app, passport);
 
 /* ---- Set port and start server ---- */
 
