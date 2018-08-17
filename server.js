@@ -1,10 +1,7 @@
 /* ---- Dependencies ---- */
 const express = require('express');
 const logger = require('morgan');
-require('dotenv').config(); // Copy values from `.env` to `process.env`
-
-/* ---- API Routes ---- */
-const userPref = require('./api/preferences/');
+const mountAPIRoutes = require('./routes');
 
 /* ---- Initial Setup ---- */
 const app = express();
@@ -39,7 +36,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.use('/api/preferences', userPref);
+mountAPIRoutes(app);
 
 /* ---- Set port and start server ---- */
 
@@ -50,7 +47,11 @@ const runServer = callback => {
       : process.env.DEVELOPMENT_PORT;
 
   const server = app.listen(port, () => {
-    console.log('Node app is running on port', port);
+    console.log(
+      `Node app is running on port: ${port} with environment: ${
+        process.env.NODE_ENV
+      }`
+    );
     if (callback) {
       callback(server);
     }
