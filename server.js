@@ -2,6 +2,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const mountErrorHandler = require('./utils/errorHandlers');
+const mount404 = require('./utils/404Handler');
 const mountAPIRoutes = require('./routes');
 const passport = require('passport');
 const mountAuth = require('./auth');
@@ -48,6 +50,12 @@ if (process.env.NODE_ENV === 'production') {
 mountAuth(passport);
 
 mountAPIRoutes(app, passport);
+
+// Must come right before the error handlers
+mount404(app);
+
+// Must be the last thing mounted
+mountErrorHandler(app);
 
 /* ---- Set port and start server ---- */
 
