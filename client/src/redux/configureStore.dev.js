@@ -8,11 +8,25 @@ import rootSaga from './sagas';
 
 export default function configureStore(preloadedState) {
   const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [sagaMiddleware, logger];
+  let middlewares = [sagaMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
   const enhancers = [middlewareEnhancer, monitorReducersEnhancer];
-  const composedEnhancers = compose(...enhancers);
-  const store = createStore(rootReducer, preloadedState, composedEnhancers);
+  let composeEnhancers = compose;
+
+  if (
+    typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ) {
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  } else {
+    middlewares.push(logger);
+  }
+
+  const store = createStore(
+    rootReducer,
+    preloadedState,
+    composeEnhancers(...enhancers)
+  );
 
   let sagaTask = sagaMiddleware.run(function*() {
     yield rootSaga();
