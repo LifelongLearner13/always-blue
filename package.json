@@ -7,9 +7,11 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "client": "cd client && npm run start",
-    "server": "NODE_ENV=development nodemon -r dotenv/config server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev:client": "cd client && npm run start",
+    "dev:server": "NODE_ENV=development nodemon -r dotenv/config server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run dev:server\" \"npm run dev:client\"",
+    "prod:client": "cd client && npm run build",
+    "prod": "NODE_ENV=production node -r dotenv/config server.js"
   },
   "repository": {
     "type": "git",
