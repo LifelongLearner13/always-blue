@@ -7,39 +7,55 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 class AccountMenu extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    anchorEl: null
+  };
 
-    this.state = {
-      auth: true,
-      anchorEl: null
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleMenu = this.handleMenu.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
-  handleChange(event, checked) {
-    this.setState({ auth: checked });
-  }
-
-  handleMenu(event) {
+  onMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
-  }
+  };
 
-  handleClose() {
+  onMenuClose = event => {
     this.setState({ anchorEl: null });
-  }
+  };
+
+  onOpenLogin = event => {
+    this.onMenuClose();
+    this.props.openLogin();
+  };
+
+  onOpenSignUp = event => {
+    this.onMenuClose();
+    this.props.openSignUp();
+  };
 
   render() {
+    const { isUserAuthenticated } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    const menuContent = isUserAuthenticated
+      ? [
+          <MenuItem key={'account'} onClick={this.onMenuClose}>
+            <NavLink to={'/account'}>Account</NavLink>
+          </MenuItem>,
+          <MenuItem key={'logOut'} onClick={this.onMenuClose}>
+            <NavLink to={'/'}>Log Out</NavLink>
+          </MenuItem>
+        ]
+      : [
+          <MenuItem key={'logIn'} onClick={this.onOpenLogin}>
+            Log In
+          </MenuItem>,
+          <MenuItem key={'signUp'} onClick={this.onOpenSignUp}>
+            Sign Up
+          </MenuItem>
+        ];
     return (
       <div>
         <IconButton
           aria-owns={open ? 'account-menu' : null}
           aria-haspopup="true"
-          onClick={this.handleMenu}
+          onClick={this.onMenuOpen}
           color="inherit"
         >
           <AccountCircle />
@@ -56,14 +72,9 @@ class AccountMenu extends Component {
             horizontal: 'right'
           }}
           open={open}
-          onClose={this.handleClose}
+          onClose={this.onMenuClose}
         >
-          <MenuItem onClick={this.handleClose}>
-            <NavLink to={'/account'}>Account</NavLink>
-          </MenuItem>
-          <MenuItem onClick={this.handleClose}>
-            <NavLink to={'/'}>Log Out</NavLink>
-          </MenuItem>
+          {menuContent}
         </Menu>
       </div>
     );

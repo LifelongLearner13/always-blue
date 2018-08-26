@@ -6,10 +6,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import configureStore from './redux';
 import App from './components/App';
 import DyThemeProvider from './containers/DyThemeProvider';
+import initialState from './redux/initialState';
 
 import './styles/index.css';
 
-const store = configureStore();
+const store = configureStore(initialState);
 
 const renderApp = () =>
   render(

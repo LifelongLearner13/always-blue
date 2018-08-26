@@ -11,7 +11,7 @@ class DyThemeProvider extends Component {
   render() {
     let theme = {
       palette: {
-        primary: purple,
+        primary: pink,
         secondary: pink,
         error: red,
         // Used by `getContrastText()` to maximize the contrast between the background and
