@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { isUserAuthenticated } from '../redux/stateSelectors';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import AccountMenu from './AccountMenu';
+import { isUserAuthenticated } from '../redux/stateSelectors';
 import { logoutRequesting } from '../LogIn/actions';
 
 const styles = {
@@ -48,7 +48,7 @@ class Header extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography
-              variant="title"
+              variant="headline"
               color="inherit"
               className={classes.flex}
             >

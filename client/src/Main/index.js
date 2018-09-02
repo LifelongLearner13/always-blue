@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from '../common/PrivateRoute';
+import Grid from '@material-ui/core/Grid';
 import Header from '../Header';
 import Profile from '../Profile';
 
 class Main extends Component {
   render() {
-    console.log('match: ', this.props.match);
     return (
       <React.Fragment>
         <Header />
-        <main>
+        <Grid container spacing={24} component={'main'} direction={'column'}>
           <Switch>
             <PrivateRoute path={'/profile'} component={Profile} />
             <Route />
           </Switch>
-        </main>
+        </Grid>
       </React.Fragment>
     );
   }

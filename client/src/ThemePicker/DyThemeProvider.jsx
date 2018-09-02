@@ -12,6 +12,7 @@ class DyThemeProvider extends Component {
   render() {
     let theme = {
       palette: {
+        type: 'light',
         primary: green,
         secondary: indigo,
         error: red,
@@ -22,6 +23,10 @@ class DyThemeProvider extends Component {
         // two indexes within its tonal palette.
         // E.g., shift from Red 500 to Red 300 or Red 700.
         tonalOffset: 0.2
+      },
+      typography: {
+        // Apply Material UI's default fonts to all text
+        fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'].join(',')
       }
     };
     return (
