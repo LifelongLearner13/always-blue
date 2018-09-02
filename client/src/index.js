@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import configureStore from './redux';
-import App from './components/App';
-import DyThemeProvider from './containers/DyThemeProvider';
+import App from './App';
+import DyThemeProvider from './ThemePicker/DyThemeProvider';
 import initialState from './redux/initialState';
 
 import './styles/index.css';
@@ -25,7 +25,7 @@ const renderApp = () =>
   );
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
-  module.hot.accept('./components/App', () => {
+  module.hot.accept('./App', () => {
     renderApp();
   });
 }

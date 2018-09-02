@@ -1,88 +1,74 @@
-const localStrategy = require('passport-local').Strategy;
-const userModel = require('../db/user');
-const JWTstrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
+/* eslint-env node */
+const Router = require('express-promise-router');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const { JWT_KEY } = process.env;
 
-module.exports = passport => {
-  // Setup `signup` authentication middleware.
-  // When called this will attempt to save the new user in the database.
-  // If successful, the pass result on to the next step.
-  passport.use(
-    'signup',
-    new localStrategy(
-      {
-        usernameField: 'email',
-        passwordField: 'password'
-      },
-      async (email, password, done) => {
-        try {
-          // Save the information provided by the user to the the database
-          const result = await userModel.save(email, password);
-          //Send the user information to the next middleware
-          return done(null, result.user, result);
-        } catch (error) {
-          done(error);
-        }
-      }
-    )
-  );
+// create a new express-promise-router
+// Same API as the normal express router except
+// it allows async functions as route handlers
+const router = new Router();
 
-  // Setup `login` authentication middleware.
-  // When called the provided email is sent to the database.
-  // If a result is found, the passwords are checked.
-  passport.use(
-    'login',
-    new localStrategy(
-      {
-        usernameField: 'email',
-        passwordField: 'password'
-      },
-      async (email, password, done) => {
-        try {
-          //Find the user associated with the email provided by the user
-          const result = await userModel.find(email);
+// Create a new user and assign them a new JWT token
+router.post('/signup', async (request, response, next) => {
+  passport.authenticate('signup', async (err, user, info) => {
+    try {
+      // If there was an error pass it along to the next middleware
+      if (err) return next(err);
 
-          if (!result.success) {
-            //If the user isn't found in the database, return a message
-            return done(null, false, result);
-          }
+      // If there was an error when creating the user in the database, return message to user.
+      if (!info.success) return response.json(...info);
 
-          //Validate password and make sure it matches with the corresponding hash stored in the database
-          //If the passwords match, it returns a value of true.
-          const validate = await userModel.isValidPassword(user, password);
-          if (!validate) {
-            return done(null, false, {
-              success: false,
-              email,
-              message: 'Wrong Password'
-            });
-          }
-          //Send the user information to the next middleware
-          return done(null, result.user, result);
-        } catch (error) {
-          return done(error);
-        }
-      }
-    )
-  );
+      request.login(user, { session: false }, async error => {
+        if (error) return next(error);
 
-  // Makes information regarding the JWT available to the next step.
-  passport.use(
-    new JWTstrategy(
-      {
-        //secret we used to sign our JWT
-        secretOrKey: 'top_secret',
-        // Extracts JWT from `authentication` header with schema bearer
-        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
-      },
-      async (token, done) => {
-        try {
-          // Pass the user details to the next middleware
-          return done(null, token.user);
-        } catch (error) {
-          done(error);
-        }
-      }
-    )
-  );
-};
+        // Content of the JWT token
+        const body = { email: user.email };
+
+        // Sign the JWT token and populate the payload
+        const token = jwt.sign({ user: body }, JWT_KEY);
+
+        // We need the user's password for Passport, but ensure it never is returned to the requester
+        delete info.user.password;
+
+        // Send results to the requester
+        return response.json({ ...info, token });
+      });
+    } catch (error) {
+      return next(error);
+    }
+  })(request, response, next);
+});
+
+// Authenticate user
+router.post('/login', async (req, res, next) => {
+  passport.authenticate('login', async (err, user, info) => {
+    try {
+      // If there was an error pass it along to the next middleware
+      if (err) return next(err);
+
+      // If there was an error when creating the user in the database, return message to user.
+      if (!info.success) return res.json({ ...info });
+
+      req.login(user, { session: false }, async error => {
+        if (error) return next(error);
+
+        // Content of the JWT token
+        const body = { email: user.email };
+
+        // Sign the JWT token and populate the payload
+        const token = jwt.sign({ user: body }, 'top_secret');
+
+        // We need the user's password for Passport, but ensure it never is returned to the requester
+        delete info.user.password;
+
+        // Send results to the requester
+        return res.json({ ...info, token });
+      });
+    } catch (error) {
+      return next(error);
+    }
+  })(req, res, next);
+});
+
+module.exports = router;

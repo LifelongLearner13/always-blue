@@ -1,3 +1,6 @@
+/* eslint-env node */
+
+// Universal error report. Specific error messages should be handled when they occure.
 function globalErrorHandler(err, req, res, next) {
   if (err) {
     console.error(err);

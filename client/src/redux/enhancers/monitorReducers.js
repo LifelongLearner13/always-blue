@@ -1,8 +1,11 @@
 const round = number => Math.round(number * 100) / 100;
 
 /**
+ * Log approximately how long a reducer takes to execute. This can prove
+ * useful in testing and improving performance. Only added to the Redux
+ * Store during development.
  * Source: https://redux.js.org/recipes/configuringyourstore
- * @param {*} createStore
+ * @param {Function} createStore - Redux function which sets up the store
  */
 const monitorReducerEnhancer = createStore => (
   reducer,

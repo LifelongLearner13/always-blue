@@ -1,19 +1,18 @@
-/* ---- Dependencies ---- */
+/* eslint-env node */
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const passport = require('passport');
+const mountAPIRoutes = require('./utils/mountAPIRoutes');
 const mountErrorHandler = require('./utils/errorHandlers');
 const mount404 = require('./utils/404Handler');
-const mountAPIRoutes = require('./routes');
-const passport = require('passport');
-const mountAuth = require('./auth');
+const mountAuth = require('./auth/middleware');
 
 /* ---- Initial Setup ---- */
 const app = express();
 
 // Parse all request bodies to JSON
-// When posting use "content-type: application/x-www-form-urlencoded"
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -37,7 +36,7 @@ app.use(function(req, res, next) {
 /* ---- Serve files/data ---- */
 
 // When in Production serve static files. In development static files are
-// are handled via webpack's dev server
+// are handled via Webpack's dev server
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 
@@ -50,6 +49,7 @@ if (process.env.NODE_ENV === 'production') {
 // Setup authentication
 mountAuth(passport);
 
+// Setup API routes
 mountAPIRoutes(app, passport);
 
 // Must come right before the error handlers
