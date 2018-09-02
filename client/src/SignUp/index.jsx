@@ -4,10 +4,13 @@ import { Redirect } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Face from '@material-ui/icons/FaceOutlined';
+import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import Paper from '@material-ui/core/Paper';
 import grey from '@material-ui/core/colors/grey';
-import { isUserAuthenticated } from '../redux/stateSelectors';
+import {
+  isUserAuthenticated,
+  isSignUpRequesting
+} from '../redux/stateSelectors';
 import { signupRequest } from './actions';
 import EmailPswdForm from '../common/EmailPswdForm';
 
@@ -32,13 +35,21 @@ const styles = theme => ({
   }
 });
 
+/**
+ * Form for a user to register for an account. Almost identical to the LogIn form.
+ * @param {Object} props - All the properties passed into the component
+ * @param {Object} props.classes - Customizes the Material-UI theme for this component
+ * @param {Function} props.handleSubmit - Passed in from Redux Form, called when form is submitted
+ * @param {string} isAuthenticated - A truthy value if user is authenticate, null otherwise
+ * @param {boolean} isRequesting - True if form is waiting for server response, false otherwise
+ */
 class SignUp extends Component {
   submitCallback = formData => {
     this.props.signupRequest(formData);
   };
 
   render() {
-    const { classes, handleSubmit, isAuthenticated } = this.props;
+    const { classes, handleSubmit, isAuthenticated, isRequesting } = this.props;
 
     return isAuthenticated ? (
       <Redirect to="/profile" />
@@ -49,7 +60,8 @@ class SignUp extends Component {
             handleSubmit={handleSubmit(this.submitCallback)}
             headLine={'Create an Account'}
             buttonText={'Sign Up'}
-            AvatarIcon={Face}
+            AvatarIcon={AccountCircle}
+            isRequesting={isRequesting}
             owner={'SIGNUP'}
           />
         </Paper>
@@ -59,12 +71,16 @@ class SignUp extends Component {
 }
 
 SignUp.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func,
+  isAuthenticated: PropTypes.string,
+  isRequesting: PropTypes.bool
 };
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: isUserAuthenticated(state)
+    isAuthenticated: isUserAuthenticated(state),
+    isRequesting: isSignUpRequesting(state)
   };
 };
 

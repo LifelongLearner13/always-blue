@@ -8,6 +8,9 @@ import {
 } from '../redux/constants';
 import initialState from '../redux/initialState';
 
+/**
+ * Updates the `login` piece of the Redux store, based on dispatched actions.
+ */
 export default (state = initialState.login, action) => {
   const { success } = action;
   switch (action.type) {

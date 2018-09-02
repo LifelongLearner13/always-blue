@@ -35,13 +35,21 @@ const styles = theme => ({
   }
 });
 
+/**
+ * Form for a user to log into their account. Almost identical to the SignUp form.
+ * @param {Object} props - All the properties passed into the component
+ * @param {Object} props.classes - Customizes the Material-UI theme for this component
+ * @param {Function} props.handleSubmit - Passed in from Redux Form, called when form is submitted
+ * @param {string} isAuthenticated - A truthy value if user is authenticate, null otherwise
+ * @param {boolean} isRequesting - True if form is waiting for server response, false otherwise
+ */
 class LogIn extends Component {
   submitCallback = formData => {
     this.props.loginRequest(formData);
   };
 
   render() {
-    const { classes, handleSubmit, isAuthenticated } = this.props;
+    const { classes, handleSubmit, isAuthenticated, isRequesting } = this.props;
     return isAuthenticated ? (
       <Redirect to="/profile" />
     ) : (
@@ -52,6 +60,7 @@ class LogIn extends Component {
             headLine={'Log In'}
             buttonText={'Submit'}
             AvatarIcon={Lock}
+            isRequesting={isRequesting}
             owner={'LOGIN'}
           />
         </Paper>

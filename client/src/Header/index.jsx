@@ -25,6 +25,11 @@ const styles = {
   }
 };
 
+/**
+ * Header displayed on all major pages.
+ * @param {Object} props - All the properties passed into the component
+ * @param {Object} props.classes - Customization to the Material-UI theme
+ */
 class Header extends React.Component {
   state = {};
 
@@ -50,7 +55,7 @@ class Header extends React.Component {
               Full Stack Template
             </Typography>
             <AccountMenu
-              isUserAuthenticated={isUserAuthenticated}
+              isAuthenticated={isUserAuthenticated}
               handleLogOut={logoutRequesting}
             />
           </Toolbar>

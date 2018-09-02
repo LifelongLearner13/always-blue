@@ -4,11 +4,18 @@ import { setLocalStorage } from '../utils/localStorage';
 import { signupSuccess, signupError } from './actions';
 import { loginRequest } from '../LogIn/actions';
 
+// API endpoint may change based on the build environment
 const SIGNUP_ENDPOINT =
   process.env.NODE_ENV === 'production'
     ? `${window.location}/api/auth/signup`
     : `${process.env.REACT_APP_DEV_API_URL}/auth/signup`;
 
+/**
+ * API request to the `/signup` endpoint. Modern browsers have
+ * the Fetch API by default, but Create React App polyfills it for older browsers.
+ * @param {string} email - User's email
+ * @param {string} password - User's password
+ */
 function signupApi(email, password) {
   return fetch(SIGNUP_ENDPOINT, {
     method: 'POST',
@@ -28,6 +35,8 @@ function signupApi(email, password) {
       return json;
     })
     .catch(error => {
+      // Fetch is weird when it comes to errors. This is only called when something
+      // is really wrong, so prevent potentially sensitive error messages in production
       if (process.env.NODE_ENV === 'production') {
         const userError = new Error('Something went wrong, please try again.');
         throw userError;
@@ -38,8 +47,12 @@ function signupApi(email, password) {
     });
 }
 
-// Executed when the latest SIGNUP_REQUESTING action is caught
-// by signupWatcher
+/**
+ * Executed when the latest SIGNUP_REQUESTING action is caught by signupWatcher
+ * @param {Object} arguments - All arguments passed to the function
+ * @param {string} email - Entered email address
+ * @param {string} password - Entered password
+ */
 function* signupFlow({ email, password }) {
   try {
     // Initiate call to signup endpoint, execution pauses until either response or
@@ -49,6 +62,7 @@ function* signupFlow({ email, password }) {
     // If request was a success, dispatch action to the store
     yield put(signupSuccess(response));
 
+    // Sign newly created user in
     let { token, user } = response;
     yield call(setLocalStorage, 'user', user);
     yield call(setLocalStorage, 'token', token);

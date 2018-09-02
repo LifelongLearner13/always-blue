@@ -12,12 +12,13 @@ const router = new Router();
 // Create a new user and assign them a new JWT token
 router.post('/signup', async (request, response, next) => {
   passport.authenticate('signup', async (err, user, info) => {
+    console.log('info: ', info);
     try {
       // If there was an error pass it along to the next middleware
       if (err) return next(err);
 
       // If there was an error when creating the user in the database, return message to user.
-      if (!info.success) return response.json(...info);
+      if (!info.success) return response.json({ ...info });
 
       request.login(user, { session: false }, async error => {
         if (error) return next(error);

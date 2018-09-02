@@ -8,10 +8,12 @@ import App from './App';
 import DyThemeProvider from './ThemePicker/DyThemeProvider';
 import initialState from './redux/initialState';
 
-import './styles/index.css';
-
+// Configure the Redux store
 const store = configureStore(initialState);
 
+/**
+ * Main entry point for the app, this component sets up the router, Redux, and the Material UI theme.
+ */
 const renderApp = () =>
   render(
     <Provider store={store}>
@@ -24,6 +26,7 @@ const renderApp = () =>
     document.getElementById('root')
   );
 
+// Enable hot reloading when not in production
 if (process.env.NODE_ENV !== 'production' && module.hot) {
   module.hot.accept('./App', () => {
     renderApp();

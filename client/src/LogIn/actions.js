@@ -6,6 +6,10 @@ import {
   LOGOUT_SUCCESS
 } from '../redux/constants';
 
+/**
+ * Redux action creators for the `login` piece of the store
+ */
+
 export const loginRequest = ({ email, password }) => ({
   type: LOGIN_REQUESTING,
   email,

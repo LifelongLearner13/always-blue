@@ -1,3 +1,7 @@
+/**
+ * Functions for getting, setting, and deleting information from local storage
+ */
+
 export const getLocalStorage = key => JSON.parse(localStorage.getItem(key));
 
 export const setLocalStorage = (key, data) =>

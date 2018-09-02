@@ -4,8 +4,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
 import Main from './Main';
-import './styles/App.css';
 
+/**
+ * Lays out the top level routes, these represent main types of pages. Also utilizes
+ * Material UI's CssBaseline component to have a normalized styling environment.
+ */
 class App extends Component {
   render() {
     return (

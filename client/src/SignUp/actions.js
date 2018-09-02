@@ -4,6 +4,10 @@ import {
   SIGNUP_ERROR
 } from '../redux/constants';
 
+/**
+ * Redux action creators for the `login` piece of the store
+ */
+
 export const signupRequest = ({ email, password }) => ({
   type: SIGNUP_REQUESTING,
   email,

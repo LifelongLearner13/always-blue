@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import TextFieldWrapper from './TextFieldWrapper';
 import MessageList from '../MessageList';
 
@@ -24,8 +25,22 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.primary.light
   },
+  submitWrapper: {
+    margin: theme.spacing.unit,
+    position: 'relative'
+  },
   submit: {
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
+    '&:disabled': {
+      backgroundColor: theme.palette.primary[200]
+    }
+  },
+  buttonProgress: {
+    color: theme.palette.secondary.dark,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginLeft: -12
   }
 });
 
@@ -60,6 +75,7 @@ class EmailPswdForm extends Component {
       handleSubmit,
       headLine,
       buttonText,
+      isRequesting,
       classes,
       AvatarIcon,
       owner
@@ -109,15 +125,21 @@ class EmailPswdForm extends Component {
             )
           }}
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="raised"
-          color="primary"
-          className={classes.submit}
-        >
-          {buttonText}
-        </Button>
+        <div className={classes.submitWrapper}>
+          <Button
+            type="submit"
+            disabled={isRequesting}
+            fullWidth
+            variant="raised"
+            color="primary"
+            className={classes.submit}
+          >
+            {buttonText}
+          </Button>
+          {isRequesting && (
+            <CircularProgress size={24} className={classes.buttonProgress} />
+          )}
+        </div>
       </form>
     );
   }

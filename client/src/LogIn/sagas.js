@@ -16,11 +16,18 @@ import {
   logoutSuccess
 } from './actions';
 
+// API endpoint may change based on the build environment
 const LOGIN_ENDPOINT =
   process.env.NODE_ENV === 'production'
     ? `${window.location}/api/auth/login`
     : `${process.env.REACT_APP_DEV_API_URL}/auth/login`;
 
+/**
+ * API request to the `/login` endpoint. Modern browsers have
+ * the Fetch API by default, but Create React App polyfills it for older browsers.
+ * @param {string} email - User's email
+ * @param {string} password - User's password
+ */
 function loginApi(email, password) {
   return fetch(LOGIN_ENDPOINT, {
     method: 'POST',
@@ -40,6 +47,8 @@ function loginApi(email, password) {
       return json;
     })
     .catch(error => {
+      // Fetch is weird when it comes to errors. This is only called when something
+      // is really wrong, so prevent potentially sensitive error messages in production
       if (process.env.NODE_ENV === 'production') {
         const userError = new Error('Something went wrong, please try again.');
         throw userError;
@@ -50,22 +59,35 @@ function loginApi(email, password) {
     });
 }
 
+/**
+ * Saga generator for logging the user out.
+ */
 function* logout() {
   // dispatches the LOGOUT_REQUESTING action
   yield put(logoutRequesting());
 
+  // Remove information from local storage
   yield call(removeLocalStorage, 'token');
   yield call(removeLocalStorage, 'user');
+
+  // dispatch success action
   yield put(logoutSuccess());
 }
 
+/**
+ * Saga generator that will attempt to log a user in
+ * @param {*} email - User's email, if null will try to retrieve JWT from local storage
+ * @param {*} password - User's password, if null will try to retrieve JWT from local storage
+ */
 function* loginFlow(email, password) {
   let response;
   try {
+    // Look to see if data is stored in local storage
     let storedToken = getLocalStorage('token');
     let storedUser = getLocalStorage('user');
 
     if (storedToken) {
+      // If JWT was in local storage, dispatch action to log user in
       yield put(
         loginSuccess({
           success: true,
@@ -75,14 +97,21 @@ function* loginFlow(email, password) {
         })
       );
     } else {
+      // If JWT was not in local storage and nothing was passed into the generator, give up
       if (!email || !password) return false;
+
+      // Query the server
       response = yield call(loginApi, email, password);
+
+      // Add information to local storage
       yield call(setLocalStorage, 'user', response.user);
       yield call(setLocalStorage, 'token', response.token);
+
+      // Dispatch action to log user in
       yield put(loginSuccess(response));
     }
   } catch (error) {
-    console.error('loginFlow error: ', error);
+    // API error, dispatch action to display message to user
     yield put(loginError({ success: false, message: error.message }));
     return false;
   }
@@ -93,7 +122,10 @@ function* loginFlow(email, password) {
 function* loginWatcher() {
   let loginTask = null;
   let action = null;
+
+  // Continually watch for these instructions
   while (true) {
+    // Wait for either `LOGOUT_REQUESTING` or LOGIN_REQUESTING` to be dispatched
     action = yield take([LOGOUT_REQUESTING, LOGIN_REQUESTING]);
 
     if (action.type === LOGIN_REQUESTING) {
@@ -101,9 +133,12 @@ function* loginWatcher() {
 
       // Non-blocking execution continues until next yield
       loginTask = yield fork(loginFlow, email, password);
+
+      // Wait for either `LOGOUT_REQUESTING` or `LOGIN_ERROR`
       action = yield take([LOGOUT_REQUESTING, LOGIN_ERROR]);
 
       if (action.type === LOGOUT_REQUESTING) {
+        // User is attempting a logout, cancel initial login action if it is still running.
         yield cancel(loginTask);
         yield call(logout);
       }
