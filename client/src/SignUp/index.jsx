@@ -103,8 +103,8 @@ const validate = values => {
   ) {
     errors.email = 'Invalid email address';
   }
-  if (values.password && !values.password.length > 8) {
-    errors.password = 'Password not long enough';
+  if (values.password && values.password.length < 8) {
+    errors.password = 'Password must be at least 8 characters';
   }
   return errors;
 };
