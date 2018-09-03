@@ -24,7 +24,8 @@
   "devDependencies": {
     "concurrently": "^3.6.1",
     "morgan": "^1.9.0",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "prettier": "1.14.2"
   },
   "dependencies": {
     "bcrypt": "^3.0.0",
