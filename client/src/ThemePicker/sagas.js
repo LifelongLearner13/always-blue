@@ -6,7 +6,7 @@ import { themeSuccess, themeError } from './actions';
 // API endpoint may change based on the build environment
 const THEME_ENDPOINT =
   process.env.NODE_ENV === 'production'
-    ? `${window.location.origin}/user/preferences`
+    ? `${window.location.origin}/api/user/preferences`
     : `${process.env.REACT_APP_DEV_API_URL}/user/preferences`;
 
 /**

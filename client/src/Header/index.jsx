@@ -11,18 +11,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountMenu from './AccountMenu';
 import { isUserAuthenticated } from '../redux/stateSelectors';
 import { logoutRequesting } from '../LogIn/actions';
+import MainMenu from './MainMenu';
 
 const styles = {
   header: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   flex: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
-  }
+    marginRight: 20,
+  },
 };
 
 /**
@@ -31,10 +32,25 @@ const styles = {
  * @param {Object} props.classes - Customization to the Material-UI theme
  */
 class Header extends React.Component {
-  state = {};
+  state = {
+    isMenuOpen: false,
+  };
+
+  handleMenuClose = () => {
+    this.setState({
+      isMenuOpen: false,
+    });
+  };
+
+  handleMenuOpen = () => {
+    this.setState({
+      isMenuOpen: true,
+    });
+  };
 
   render() {
     const { classes, isUserAuthenticated, logoutRequesting } = this.props;
+    const { isMenuOpen } = this.state;
 
     return (
       <header>
@@ -44,9 +60,15 @@ class Header extends React.Component {
               className={classes.menuButton}
               color="inherit"
               aria-label="Menu"
+              onClick={this.handleMenuOpen}
             >
               <MenuIcon />
             </IconButton>
+            <MainMenu
+              isOpen={isMenuOpen}
+              handleClose={this.handleMenuClose}
+              isAuthenticated={isUserAuthenticated}
+            />
             <Typography
               variant="headline"
               color="inherit"
@@ -66,17 +88,17 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => {
   return {
-    isUserAuthenticated: isUserAuthenticated(state)
+    isUserAuthenticated: isUserAuthenticated(state),
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  logoutRequesting: () => dispatch(logoutRequesting())
+  logoutRequesting: () => dispatch(logoutRequesting()),
 });
 
 export default connect(
