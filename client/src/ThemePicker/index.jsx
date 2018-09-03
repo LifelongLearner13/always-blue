@@ -59,6 +59,14 @@ const styles = theme => ({
   }
 });
 
+/**
+ * Form permitting selection of a primary and secondary color for the app theme.
+ * Colors are pulled from Material-UI pallet.
+ * @param {Object} props - Properties passed to React component
+ * @param {Object} props.classes - Customized styles based on the Material-UI theme
+ * @param {Function} props.handleSubmit - Injected by Redux Form, used when submitting the form
+ * @param {boolean} props.isRequesting - True if the selected preferences are in the process of being saved
+ */
 class ThemePicker extends Component {
   submitCallback = formData => {
     this.props.themeRequest({
@@ -176,8 +184,15 @@ class ThemePicker extends Component {
   }
 }
 
+ThemePicker.propTypes = {
+  classes: PropTypes.object,
+  handleSubmit: PropTypes.func,
+  isRequesting: PropTypes.bool
+};
+
 const mapStateToProps = state => ({
   initialValues: {
+    // Used to initialize Redux Form with values from Redux store
     primary: getThemePrimary(state),
     secondary: getThemeSecondary(state)
   },
@@ -190,7 +205,7 @@ const mapDispatchToProps = dispatch => ({
 
 const Form = reduxForm({
   form: 'themePicker',
-  enableReinitialize: true
+  enableReinitialize: true // Will update the form, if the values in `initialValues` change
 })(withStyles(styles)(ThemePicker));
 
 export default connect(
