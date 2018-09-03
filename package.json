@@ -7,7 +7,7 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "cd client && npm install",
+    "heroku-prebuild": "cd client && npm install",
     "heroku-postbuild": "npm run prod:client",
     "start": "npm run prod",
     "dev:client": "cd client && npm run start",
