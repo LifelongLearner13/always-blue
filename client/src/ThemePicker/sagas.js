@@ -6,7 +6,7 @@ import { themeSuccess, themeError } from './actions';
 // API endpoint may change based on the build environment
 const THEME_ENDPOINT =
   process.env.NODE_ENV === 'production'
-    ? `${window.location}/user/preferences`
+    ? `${window.location.origin}/user/preferences`
     : `${process.env.REACT_APP_DEV_API_URL}/user/preferences`;
 
 /**
@@ -20,9 +20,9 @@ function themeApi(token, theme) {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ theme })
+    body: JSON.stringify({ theme }),
   })
     .then(response => response.json())
     .then(json => {
@@ -60,7 +60,7 @@ function* themeFlow({ primary, secondary }) {
     yield put(
       themeError({
         success: false,
-        message: 'You must be logged in in order to save a theme.'
+        message: 'You must be logged in in order to save a theme.',
       })
     );
     return false;

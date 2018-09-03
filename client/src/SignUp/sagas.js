@@ -7,7 +7,7 @@ import { loginRequest } from '../LogIn/actions';
 // API endpoint may change based on the build environment
 const SIGNUP_ENDPOINT =
   process.env.NODE_ENV === 'production'
-    ? `${window.location}/api/auth/signup`
+    ? `${window.location.origin}/api/auth/signup`
     : `${process.env.REACT_APP_DEV_API_URL}/auth/signup`;
 
 /**
@@ -20,9 +20,9 @@ function signupApi(email, password) {
   return fetch(SIGNUP_ENDPOINT, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password }),
   })
     .then(response => response.json())
     .then(json => {
