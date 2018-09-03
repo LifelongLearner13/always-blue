@@ -9,7 +9,7 @@
   "scripts": {
     "heroku-prebuild": "cd client && npm install",
     "heroku-postbuild": "npm run prod:client",
-    "start": "CLOUD=true && npm run prod",
+    "start": "npm run prod",
     "dev:client": "cd client && npm run start",
     "dev:server": "NODE_ENV=development nodemon -r dotenv/config server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run dev:server\" \"npm run dev:client\"",
