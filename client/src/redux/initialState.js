@@ -15,8 +15,10 @@ export default {
     success: false
   },
   theme: {
-    primary: 'pink',
-    secondary: 'pink',
-    error: 'red'
+    requesting: false,
+    success: false,
+    primary: 'Indigo',
+    secondary: 'Blue',
+    error: 'Red'
   }
 };

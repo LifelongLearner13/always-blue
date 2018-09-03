@@ -15,6 +15,7 @@ import {
   logoutRequesting,
   logoutSuccess
 } from './actions';
+import { themeReset, themeSuccess } from '../ThemePicker/actions';
 
 // API endpoint may change based on the build environment
 const LOGIN_ENDPOINT =
@@ -70,6 +71,8 @@ function* logout() {
   yield call(removeLocalStorage, 'token');
   yield call(removeLocalStorage, 'user');
 
+  yield put(themeReset());
+
   // dispatch success action
   yield put(logoutSuccess());
 }
@@ -96,6 +99,17 @@ function* loginFlow(email, password) {
           message: 'Login Successful'
         })
       );
+
+      // Load preferences, if any are associated with user
+      if (storedUser.preferences) {
+        yield put(
+          themeSuccess({
+            success: true,
+            message: 'Saved theme loaded',
+            preferences: storedUser.preferences
+          })
+        );
+      }
     } else {
       // If JWT was not in local storage and nothing was passed into the generator, give up
       if (!email || !password) return false;
@@ -109,6 +123,17 @@ function* loginFlow(email, password) {
 
       // Dispatch action to log user in
       yield put(loginSuccess(response));
+
+      // Load preferences, if any are associated with user
+      if (response.user.preferences) {
+        yield put(
+          themeSuccess({
+            success: true,
+            message: 'Saved theme loaded',
+            preferences: response.user.preferences
+          })
+        );
+      }
     }
   } catch (error) {
     // API error, dispatch action to display message to user

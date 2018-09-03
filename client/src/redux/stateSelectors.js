@@ -19,3 +19,19 @@ export const isSignUpRequesting = state => {
 export const getMessages = state => {
   return state.messages;
 };
+
+export const getUserProfile = state => {
+  return state.profile;
+};
+
+export const getThemePrimary = state => {
+  return state.theme.primary;
+};
+
+export const getThemeSecondary = state => {
+  return state.theme.secondary;
+};
+
+export const isThemeRequesting = state => {
+  return state.theme.requesting;
+};

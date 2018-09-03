@@ -54,7 +54,6 @@ class Message extends Component {
   };
 
   handleClose = (event, reason) => {
-    console.log('handleClose');
     if (reason === 'clickaway') {
       return;
     }

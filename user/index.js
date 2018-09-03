@@ -40,8 +40,8 @@ router.get('/preferences', async (request, response) => {
 // Update a user's preferences
 router.put('/preferences', async (request, response) => {
   const { email } = request.user;
-  const { preferences } = request.body;
-  const result = await userModel.updatePref(email, JSON.parse(preferences));
+  const preferences = request.body;
+  const result = await userModel.updatePref(email, preferences);
   response.json(result);
 });
 

@@ -168,9 +168,7 @@ const updatePref = async (email, newPref) => {
         'UPDATE public."USER" SET preferences = $2 WHERE email = $1 RETURNING preferences',
         [email, mergedPref]
       );
-
       await client.query('COMMIT'); // Close transaction
-
       return {
         success: true,
         message: `Preferences for ${email} successfully changed.`,

@@ -77,12 +77,10 @@ SignUp.propTypes = {
   isRequesting: PropTypes.bool
 };
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: isUserAuthenticated(state),
-    isRequesting: isSignUpRequesting(state)
-  };
-};
+const mapStateToProps = state => ({
+  isAuthenticated: isUserAuthenticated(state),
+  isRequesting: isSignUpRequesting(state)
+});
 
 const mapDispatchToProps = dispatch => ({
   signupRequest: data => dispatch(signupRequest(data))

@@ -7,33 +7,30 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-const styles = theme => {
-  console.log(theme);
-  return {
-    menuList: {
-      padding: 0
+const styles = theme => ({
+  menuList: {
+    padding: 0
+  },
+  linkButton: {
+    '&:hover': {
+      backgroundColor: theme.palette.secondary[100],
+      color: theme.palette.getContrastText(theme.palette.secondary[100])
     },
-    linkButton: {
-      '&:hover': {
-        backgroundColor: theme.palette.secondary[100],
-        color: theme.palette.getContrastText(theme.palette.secondary[100])
-      },
-      '&:focus': {
-        backgroundColor: theme.palette.secondary[100],
-        color: theme.palette.getContrastText(theme.palette.secondary[100])
-      }
-    },
-    link: {
-      textDecoration: 'none',
-      '&:visited': {
-        color: theme.palette.text.primary
-      },
-      '&:active': {
-        color: theme.palette.text.primary
-      }
+    '&:focus': {
+      backgroundColor: theme.palette.secondary[100],
+      color: theme.palette.getContrastText(theme.palette.secondary[100])
     }
-  };
-};
+  },
+  link: {
+    textDecoration: 'none',
+    '&:visited': {
+      color: theme.palette.text.primary
+    },
+    '&:active': {
+      color: theme.palette.text.primary
+    }
+  }
+});
 
 /**
  * Dropdown menu for account based actions. Options change depending on the

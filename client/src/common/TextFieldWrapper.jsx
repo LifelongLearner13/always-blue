@@ -12,16 +12,13 @@ import TextField from '@material-ui/core/TextField';
  * @param {JSX.Element} props.meta.error - Any issues relating to the validation of the field
  * @param {Object} props.rest - Any other properties added to the component
  */
-const TextFieldWrapper = ({ input, meta: { touched, error }, ...rest }) => {
-  console.log(touched && error ? { error: true, component: error } : {});
-  return (
-    <TextField
-      {...input}
-      {...rest}
-      error={Boolean(touched && error)}
-      helperText={touched && error ? error : null}
-    />
-  );
-};
+const TextFieldWrapper = ({ input, meta: { touched, error }, ...rest }) => (
+  <TextField
+    {...input}
+    {...rest}
+    error={Boolean(touched && error)}
+    helperText={touched && error ? error : null}
+  />
+);
 
 export default TextFieldWrapper;

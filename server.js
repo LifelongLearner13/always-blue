@@ -30,6 +30,14 @@ app.use(function(req, res, next) {
     'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials'
   );
   res.header('Access-Control-Allow-Credentials', 'true');
+
+  // The Fetch API does not send Authentication headers with OPTION requests
+  // This allows the OPTIONS request to complete successfully without requiring
+  // authentication.
+  if (req.method === 'OPTIONS') {
+    res.end();
+  }
+
   next();
 });
 

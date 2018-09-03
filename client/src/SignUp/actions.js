@@ -5,7 +5,7 @@ import {
 } from '../redux/constants';
 
 /**
- * Redux action creators for the `login` piece of the store
+ * Redux action creators for the `signup` piece of the store
  */
 
 export const signupRequest = ({ email, password }) => ({

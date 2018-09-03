@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
-import indigo from '@material-ui/core/colors/indigo';
-import pink from '@material-ui/core/colors/pink';
 import red from '@material-ui/core/colors/red';
+import materialUIColors from './materialUIColors';
+import { getThemePrimary, getThemeSecondary } from '../redux/stateSelectors';
 
 class DyThemeProvider extends Component {
   render() {
-    let theme = {
+    const { primary, secondary } = this.props;
+    const theme = {
       palette: {
         type: 'light',
-        primary: green,
-        secondary: indigo,
+        primary: materialUIColors[primary],
+        secondary: materialUIColors[secondary],
         error: red,
         // Used by `getContrastText()` to maximize the contrast between the background and
         // the text.
@@ -37,10 +36,9 @@ class DyThemeProvider extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    theme: state.theme
-  };
-};
+const mapStateToProps = state => ({
+  primary: getThemePrimary(state),
+  secondary: getThemeSecondary(state)
+});
 
 export default withRouter(connect(mapStateToProps)(DyThemeProvider));
