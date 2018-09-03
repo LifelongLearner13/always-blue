@@ -2,25 +2,25 @@ import { take, fork, cancel, call, put } from 'redux-saga/effects';
 import {
   LOGIN_REQUESTING,
   LOGIN_ERROR,
-  LOGOUT_REQUESTING
+  LOGOUT_REQUESTING,
 } from '../redux/constants';
 import {
   setLocalStorage,
   getLocalStorage,
-  removeLocalStorage
+  removeLocalStorage,
 } from '../utils/localStorage';
 import {
   loginSuccess,
   loginError,
   logoutRequesting,
-  logoutSuccess
+  logoutSuccess,
 } from './actions';
 import { themeReset, themeSuccess } from '../ThemePicker/actions';
 
 // API endpoint may change based on the build environment
 const LOGIN_ENDPOINT =
   process.env.NODE_ENV === 'production'
-    ? `${window.location}/api/auth/login`
+    ? `${window.location.origin}/api/auth/login`
     : `${process.env.REACT_APP_DEV_API_URL}/auth/login`;
 
 /**
@@ -33,9 +33,9 @@ function loginApi(email, password) {
   return fetch(LOGIN_ENDPOINT, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password }),
   })
     .then(response => response.json())
     .then(json => {
@@ -96,7 +96,7 @@ function* loginFlow(email, password) {
           success: true,
           token: storedToken,
           user: storedUser,
-          message: 'Login Successful'
+          message: 'Login Successful',
         })
       );
 
@@ -106,7 +106,7 @@ function* loginFlow(email, password) {
           themeSuccess({
             success: true,
             message: 'Saved theme loaded',
-            preferences: storedUser.preferences
+            preferences: storedUser.preferences,
           })
         );
       }
@@ -130,7 +130,7 @@ function* loginFlow(email, password) {
           themeSuccess({
             success: true,
             message: 'Saved theme loaded',
-            preferences: response.user.preferences
+            preferences: response.user.preferences,
           })
         );
       }

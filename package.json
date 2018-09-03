@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "heroku-prebuild": "cd client && npm install",
-    "heroku-postbuild": "npm run prod:client",
+    "heroku-postbuild": "CLOUD=true npm run prod:client",
     "start": "npm run prod",
     "dev:client": "cd client && npm run start",
     "dev:server": "NODE_ENV=development nodemon -r dotenv/config server.js",
