@@ -36,9 +36,9 @@ app.use(function(req, res, next) {
   // authentication.
   if (req.method === 'OPTIONS') {
     res.end();
+  } else {
+    next();
   }
-
-  next();
 });
 
 /* ---- Serve files/data ---- */

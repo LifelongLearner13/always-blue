@@ -33,6 +33,12 @@ const styles = theme => ({
   }
 });
 
+/**
+ * Layout for the Profile page.
+ * @param {Object} props - Properties passed to the component
+ * @param {Object} props.classes - Customization to the Material-UI theme
+ * @param {profile} props.profile - Information stored in the Redux store
+ */
 class Profile extends Component {
   render() {
     const { classes, profile } = this.props;
@@ -80,6 +86,11 @@ class Profile extends Component {
     );
   }
 }
+
+Profile.propTypes = {
+  profile: PropTypes.object,
+  classes: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   profile: getUserProfile(state)

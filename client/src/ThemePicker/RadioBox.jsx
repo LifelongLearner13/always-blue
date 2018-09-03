@@ -25,4 +25,11 @@ const RadioBox = ({ value, label, color, ...rest }) => (
   />
 );
 
+RadioBox.propTypes = {
+  value: PropTypes.string,
+  label: PropTypes.string,
+  color: PropTypes.string,
+  rest: PropTypes.any
+};
+
 export default RadioBox;
