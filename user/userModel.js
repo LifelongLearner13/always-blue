@@ -15,21 +15,21 @@ const save = async (email, password) => {
 
   try {
     const { rows } = await db.query(
-      'INSERT INTO public."USER"(email, password) VALUES($1, $2) RETURNING email, preferences',
+      'INSERT INTO "user"(email, password) VALUES($1, $2) RETURNING email, preferences',
       [email, hashedPswd]
     );
 
     return {
       success: true,
       message: `User ${email} successfully created.`,
-      user: rows[0]
+      user: rows[0],
     };
   } catch (err) {
     // Postgres error code
     if (err.code === '23505') {
       return {
         success: false,
-        message: `User ${email} already exists.`
+        message: `User ${email} already exists.`,
       };
     }
     throw err;
@@ -38,46 +38,44 @@ const save = async (email, password) => {
 
 // Look up User by email in the database
 const find = async email => {
-  const { rows } = await db.query(
-    'SELECT * FROM public."USER" WHERE email = $1',
-    [email]
-  );
+  const { rows } = await db.query('SELECT * FROM "user" WHERE email = $1', [
+    email,
+  ]);
 
   const user = rows[0];
 
   if (!user) {
     return {
       success: false,
-      message: `Email ${email} is not recognized.`
+      message: `Email ${email} is not recognized.`,
     };
   }
 
   return {
     success: true,
     message: '',
-    user: user
+    user: user,
   };
 };
 
 // Delete user from database
 const del = async email => {
-  const { rows } = await db.query(
-    'DELETE FROM public."USER" WHERE email = $1',
-    [email]
-  );
+  const { rows } = await db.query('DELETE FROM "user" WHERE email = $1', [
+    email,
+  ]);
 
   const user = rows[0];
 
   if (!user) {
     return {
       success: false,
-      message: `Email ${email} was not deleted.`
+      message: `Email ${email} was not deleted.`,
     };
   }
 
   return {
     success: true,
-    message: `User ${email} was successfully deleted.`
+    message: `User ${email} was successfully deleted.`,
   };
 };
 
@@ -90,7 +88,7 @@ const updatePswd = async (email, newPswd) => {
       // Start transaction
       await client.query('BEGIN');
       const { rows } = await client.query(
-        'SELECT * FROM public."USER" WHERE email = $1',
+        'SELECT * FROM "user" WHERE email = $1',
         [email]
       );
 
@@ -101,21 +99,21 @@ const updatePswd = async (email, newPswd) => {
       if (isSamePswd) {
         return {
           success: false,
-          message: `Password for ${email} not changed. Entered value was the same as current password.`
+          message: `Password for ${email} not changed. Entered value was the same as current password.`,
         };
       }
 
       newPswd = await bcrypt.hash(newPswd, parseInt(BCRYPT_SALT_ROUNDS));
 
-      await client.query(
-        'UPDATE public."USER" SET password = $2 WHERE email = $1',
-        [email, newPswd]
-      );
+      await client.query('UPDATE "user" SET password = $2 WHERE email = $1', [
+        email,
+        newPswd,
+      ]);
       await client.query('COMMIT'); // Close transaction
 
       return {
         success: true,
-        message: `Password for ${email} successfully changed.`
+        message: `Password for ${email} successfully changed.`,
       };
     } catch (err) {
       await client.query('ROLLBACK');
@@ -127,7 +125,7 @@ const updatePswd = async (email, newPswd) => {
     console.error(err.stack);
     return {
       success: false,
-      message: 'Something went wrong, please try again.'
+      message: 'Something went wrong, please try again.',
     };
   });
 };
@@ -135,14 +133,14 @@ const updatePswd = async (email, newPswd) => {
 // Return a user's preferences stored in the database
 const findPref = async email => {
   const { rows } = await db.query(
-    'SELECT preferences FROM public."USER" WHERE email = $1',
+    'SELECT preferences FROM "user" WHERE email = $1',
     [email]
   );
 
   return {
     success: true,
     message: `Preferences for ${email} successfully found`,
-    preferences: rows[0].preferences ? rows[0].preferences : {}
+    preferences: rows[0].preferences ? rows[0].preferences : {},
   };
 };
 
@@ -155,7 +153,7 @@ const updatePref = async (email, newPref) => {
       // Start transaction
       await client.query('BEGIN');
       const { rows } = await client.query(
-        'SELECT preferences FROM public."USER" WHERE email = $1',
+        'SELECT preferences FROM "user" WHERE email = $1',
         [email]
       );
 
@@ -165,7 +163,7 @@ const updatePref = async (email, newPref) => {
       const mergedPref = { ...oldPref, ...newPref };
 
       const result = await client.query(
-        'UPDATE public."USER" SET preferences = $2 WHERE email = $1 RETURNING preferences',
+        'UPDATE "user" SET preferences = $2 WHERE email = $1 RETURNING preferences',
         [email, mergedPref]
       );
       await client.query('COMMIT'); // Close transaction
@@ -174,7 +172,7 @@ const updatePref = async (email, newPref) => {
         message: `Preferences for ${email} successfully changed.`,
         preferences: result.rows[0].preferences
           ? result.rows[0].preferences
-          : {}
+          : {},
       };
     } catch (e) {
       await client.query('ROLLBACK');
@@ -192,5 +190,5 @@ module.exports = {
   del,
   isValidPassword,
   findPref,
-  updatePref
+  updatePref,
 };
