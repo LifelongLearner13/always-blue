@@ -2,8 +2,7 @@ export default {
   form: {},
   messages: [],
   profile: {
-    email: null,
-    preferences: {},
+    user: {},
     token: null,
   },
   login: {

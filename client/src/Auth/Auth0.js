@@ -1,5 +1,5 @@
 import auth0 from 'auth0-js';
-import history from './history';
+import history from '../utils/history';
 import {
   setLocalStorage,
   getLocalStorage,
@@ -20,20 +20,23 @@ export default class Auth {
     this.getUserProfile = this.getUserProfile.bind(this);
   }
 
-  login() {
-    this.auth0.authorize();
+  login(path) {
+    let state = { path };
+    this.auth0.authorize({
+      state: JSON.stringify(state),
+    });
   }
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((error, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
-          console.log('handleAuthentication - authResult: ', authResult);
+          let { path } = JSON.parse(authResult.state);
+          path = path || '/';
           this.setSession(authResult);
-          history.replace('/');
+          history.replace(path);
           resolve(authResult);
         } else if (error) {
-          console.log('handleAuthentication - error: ', error);
           history.replace('/');
           reject({ error });
         }
@@ -50,10 +53,10 @@ export default class Auth {
   }
 
   logout() {
-    // Clear Access Token and ID Token from local storage
     removeLocalStorage('access_token');
     removeLocalStorage('id_token');
     removeLocalStorage('expires_at');
+    removeLocalStorage('user_profile');
     // navigate to the home route
     history.replace('/');
   }

@@ -11,7 +11,7 @@ import {
  * Redux action creators for the `login` piece of the store
  */
 
-export const loginRequesting = () => ({ type: LOGIN_REQUESTING });
+export const loginRequesting = path => ({ type: LOGIN_REQUESTING, path });
 
 export const loginProcessing = () => ({ type: LOGIN_PROCESSING });
 
