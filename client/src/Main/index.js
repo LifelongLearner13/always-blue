@@ -23,7 +23,7 @@ class Main extends Component {
     return (
       <React.Fragment>
         <Header />
-        <Grid container spacing={24} component={'main'} direction={'column'}>
+        <main style={{ display: 'flex' }}>
           <Switch>
             <PrivateRoute path={'/profile'} component={Profile} />
             <Route
@@ -40,7 +40,7 @@ class Main extends Component {
               }}
             />
           </Switch>
-        </Grid>
+        </main>
       </React.Fragment>
     );
   }

@@ -11,6 +11,7 @@ const styles = theme => ({
     alignItems: 'center',
     flexGrow: 1,
     height: '70vh',
+    maxWidth: '100%',
   },
   progress: {
     margin: theme.spacing.unit * 2,
