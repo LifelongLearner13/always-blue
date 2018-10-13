@@ -91,9 +91,17 @@ const runServer = callback => {
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-io.on('connection', function(socket){
-  console.log('a user connected');
+io.on('connection', socket => {
+  socket.on('new message', newData => {
+    console.log(newData);
+    // send data to chatbot class
+    //let msg = chatbot(newData);
+    let msg = 'got a messege from the chat bot';
+    socket.emit('bot msg', msg);
+  });
 });
+
+
 
 http.listen(4000, function(){
   console.log('listening on *:4000');

@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import ClassNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { connect } from 'react-redux';
 
 const data = [
   {
@@ -89,7 +90,7 @@ const styles = theme => ({
 
 class ChatList extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, dispatch } = this.props;
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -112,9 +113,14 @@ class ChatList extends Component {
             ))}
           </ol>
         </Paper>
+        <button type="button" onClick={() => dispatch({event: true, handle: 'newMsg', payload: 'some chat msg to send the server'})}>Click Me!</button> 
       </div>
     );
   }
 }
 
-export default withStyles(styles)(ChatList);
+const mapStateToProps = state => {
+  return {};
+};
+
+export default withStyles(styles)(connect(mapStateToProps)(ChatList));

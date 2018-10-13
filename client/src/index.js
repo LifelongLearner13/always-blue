@@ -9,7 +9,7 @@ import DyThemeProvider from './ThemePicker/DyThemeProvider';
 import initialState from './redux/initialState';
 
 // Configure the Redux store
-const store = configureStore(initialState);
+export const store = configureStore(initialState);
 
 /**
  * Main entry point for the app, this component sets up the router, Redux, and the Material UI theme.

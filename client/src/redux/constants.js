@@ -19,3 +19,6 @@ export const THEME_REQUESTING = 'THEME_REQUESTING';
 export const THEME_SUCCESS = 'THEME_SUCCESS';
 export const THEME_ERROR = 'THEME_ERROR';
 export const THEME_RESET = 'THEME_RESET';
+
+export const SENT_CHAT_MSG = 'SENT_CHAT_MSG';
+export const GOT_CHAT_MSG = 'GOT_CHAT_MSG';

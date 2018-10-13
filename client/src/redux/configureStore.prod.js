@@ -15,7 +15,7 @@ export default function configureStore(preloadedState) {
   const store = createStore(
     rootReducer,
     preloadedState,
-    applyMiddleware(...middlewares, socketMiddleware)
+    applyMiddleware(socketMiddleware(), ...middlewares)
   );
 
   // Start Redux Saga
