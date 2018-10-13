@@ -5,9 +5,11 @@
   "dependencies": {
     "@material-ui/core": "^1.5.1",
     "@material-ui/icons": "^2.0.3",
+    "@material-ui/lab": "^3.0.0-alpha.19",
     "classnames": "^2.2.6",
     "install": "^0.12.1",
     "npm": "^6.4.0",
+    "openlayers": "^4.6.5",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
 import Main from './Main';
-import Map from './Map';
+import Gh7Map from './Gh7Map';
 
 /**
  * Lays out the top level routes, these represent main types of pages. Also utilizes
@@ -21,8 +21,7 @@ class App extends Component {
           <Route component={Main} />
         </Switch>
           <div>
-            <h2>map div</h2>
-            <Map />
+            <Gh7Map />
           </div>
       </React.Fragment>
     );
