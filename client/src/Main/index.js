@@ -8,11 +8,13 @@ import Profile from '../Profile';
 import Loader from '../common/Loader';
 import { loginProcessing } from '../Auth/actions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
+import io from 'socket.io-client';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.handleAuthentication = this.handleAuthentication.bind(this);
+    let socket = io.connect("http://localhost:4000");
   }
   handleAuthentication = (nextState, replace) => {
     if (/access_token|id_token|error/.test(nextState.location.hash)) {
