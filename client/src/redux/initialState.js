@@ -16,4 +16,8 @@ export default {
     secondary: 'Deep Purple',
     error: 'Red',
   },
+  chat: {
+    userMsg: [],
+    botMsg: []
+  }
 };

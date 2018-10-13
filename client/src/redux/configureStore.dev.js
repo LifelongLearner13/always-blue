@@ -57,7 +57,7 @@ export default function configureStore(preloadedState) {
     store = createStore(
       rootReducer,
       preloadedState,
-      applyMiddleware(...middlewares, socketMiddleware)
+      applyMiddleware(socketMiddleware(), ...middlewares)
     );
   }
 
