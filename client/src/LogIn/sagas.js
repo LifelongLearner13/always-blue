@@ -18,28 +18,16 @@ import {
 } from './actions';
 import { themeReset, themeSuccess } from '../ThemePicker/actions';
 
-// API endpoint may change based on the build environment
-const LOGIN_ENDPOINT =
-  process.env.NODE_ENV === 'production'
-    ? `${window.location.origin}/api/auth/login`
-    : `${process.env.REACT_APP_DEV_API_URL}/auth/login`;
+// URL Auth0 will redirect to when done
+const REDIRECT_URI = `${window.location.origin}/auth`;
 
-const auth = new Auth();
+const auth = new Auth(REDIRECT_URI);
+
 /**
  * Saga generator for logging the user out.
  */
 function* logout() {
-  // dispatches the LOGOUT_REQUESTING action
-  yield put(logoutRequesting());
-
-  // Remove information from local storage
-  yield call(removeLocalStorage, 'token');
-  yield call(removeLocalStorage, 'user');
-
-  yield put(themeReset());
-
-  // dispatch success action
-  yield put(logoutSuccess());
+  yield call(auth.logout);
 }
 
 /**
@@ -77,13 +65,6 @@ function* loginFlow(email, password) {
 
       // Load preferences, if any are associated with user
       if (response.user.preferences) {
-        yield put(
-          themeSuccess({
-            success: true,
-            message: 'Saved theme loaded',
-            preferences: response.user.preferences,
-          })
-        );
       }
     }
   } catch (error) {
@@ -95,14 +76,52 @@ function* loginFlow(email, password) {
   return true;
 }
 
-function* login() {
-  console.log('login Called');
-  yield call(auth.login);
+function* login(accessToken) {
+  const userProfile = yield call(auth.getUserProfile);
+  yield put(
+    loginSuccess({
+      success: true,
+      token: accessToken,
+      user: userProfile,
+      message: 'Login Successful',
+    })
+  );
+
+  const preferences = yield call(getLocalStorage, 'user_preferences');
+  if (preferences) {
+    yield put(
+      themeSuccess({
+        success: true,
+        message: 'Saved theme loaded',
+        preferences,
+      })
+    );
+  }
+}
+
+function* loginRequest() {
+  const isValid = yield call(auth.isValid);
+  const accessToken = yield call(auth.getAccessToken);
+  if (isValid && accessToken) {
+    yield call(login, accessToken);
+  } else {
+    yield call(auth.login);
+  }
 }
 
 function* loginProc() {
-  const result = yield call(auth.handleAuthentication);
-  console.log(result);
+  try {
+    const result = yield call(auth.handleAuthentication);
+    yield call(login, result.accessToken);
+  } catch (error) {
+    console.error(error);
+    yield put(
+      loginError({
+        success: false,
+        message: 'Something went wrong, please try again.',
+      })
+    );
+  }
 }
 
-export { login, loginProc };
+export { loginRequest, loginProc };

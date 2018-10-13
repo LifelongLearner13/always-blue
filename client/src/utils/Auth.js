@@ -7,17 +7,17 @@ import {
 } from '../utils/localStorage';
 
 export default class Auth {
-  constructor() {
+  constructor(redirectUri) {
     this.auth0 = new auth0.WebAuth({
       domain: process.env.REACT_APP_AUTH0_DOMAIN,
       clientID: process.env.REACT_APP_AUTH0_CLIENTID,
-      redirectUri: process.env.REACT_APP_AUTH0_REDIRECTURI,
+      redirectUri: redirectUri,
       responseType: 'token id_token',
-      scope: 'openid',
+      scope: 'openid profile',
     });
     this.login = this.login.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
-    this.isValid = this.isValid.bind(this);
+    this.getUserProfile = this.getUserProfile.bind(this);
   }
 
   login() {
@@ -35,7 +35,7 @@ export default class Auth {
         } else if (error) {
           console.log('handleAuthentication - error: ', error);
           history.replace('/');
-          resolve({ error });
+          reject({ error });
         }
       });
     });
@@ -63,5 +63,34 @@ export default class Auth {
     // Access Token's expiry time
     let expiresAt = getLocalStorage('expires_at');
     return new Date().getTime() < expiresAt;
+  }
+
+  getAccessToken() {
+    return getLocalStorage('access_token');
+  }
+
+  getUserProfile() {
+    const userProfile = getLocalStorage('user_profile');
+
+    if (!userProfile) {
+      let accessToken = getLocalStorage('access_token');
+
+      if (!accessToken) {
+        return { error: 'Not Logged in' };
+      }
+
+      return new Promise((resolve, reject) => {
+        this.auth0.client.userInfo(accessToken, function(error, profile) {
+          if (profile) {
+            setLocalStorage('user_profile', profile);
+            resolve(profile);
+          } else {
+            reject({ error });
+          }
+        });
+      });
+    } else {
+      return userProfile;
+    }
   }
 }

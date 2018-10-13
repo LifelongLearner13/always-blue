@@ -1,5 +1,5 @@
 import { all, call, takeLatest } from 'redux-saga/effects';
-import { login, loginProc } from '../LogIn/sagas';
+import { loginRequest, loginProc } from '../LogIn/sagas';
 import theme from '../ThemePicker/sagas';
 import { LOGIN_REQUESTING, LOGIN_PROCESSING } from './constants';
 
@@ -9,7 +9,7 @@ import { LOGIN_REQUESTING, LOGIN_PROCESSING } from './constants';
 export default function* rootSaga() {
   // Tasks are run in parallel
   yield all([
-    takeLatest(LOGIN_REQUESTING, login),
+    takeLatest(LOGIN_REQUESTING, loginRequest),
     takeLatest(LOGIN_PROCESSING, loginProc),
     call(theme),
   ]);
