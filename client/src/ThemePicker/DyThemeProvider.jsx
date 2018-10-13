@@ -26,12 +26,12 @@ const DyThemeProvider = ({ primary, secondary, children }) => {
       // Used to shift a color's luminance by approximately
       // two indexes within its tonal palette.
       // E.g., shift from Red 500 to Red 300 or Red 700.
-      tonalOffset: 0.2
+      tonalOffset: 0.2,
     },
     typography: {
       // Apply Material UI's default fonts to all text
-      fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'].join(',')
-    }
+      fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'].join(','),
+    },
   };
   return (
     <MuiThemeProvider theme={createMuiTheme(theme)}>
@@ -43,12 +43,12 @@ const DyThemeProvider = ({ primary, secondary, children }) => {
 DyThemeProvider.propTypes = {
   primary: propTypes.string,
   secondary: propTypes.string,
-  children: propTypes.any
+  children: propTypes.any,
 };
 
 const mapStateToProps = state => ({
   primary: getThemePrimary(state),
-  secondary: getThemeSecondary(state)
+  secondary: getThemeSecondary(state),
 });
 
 export default withRouter(connect(mapStateToProps)(DyThemeProvider));
