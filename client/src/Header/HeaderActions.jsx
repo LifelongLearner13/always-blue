@@ -46,7 +46,7 @@ class HeaderActions extends Component {
               disabled={location.pathname === '/profile'}
               onClick={() => history.push('/profile')}
             >
-              <Face />
+              <Face className={classes.icon} />
               Profile
             </Button>
             <Button
@@ -55,7 +55,7 @@ class HeaderActions extends Component {
               className={classes.button}
               onClick={() => handleLogOut()}
             >
-              <LockOpen />
+              <LockOpen className={classes.icon} />
               Log Out
             </Button>
           </Fragment>

@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import HeaderActions from './HeaderActions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
-import { loginRequesting, logoutRequesting } from '../LogIn/actions';
+import { loginRequesting, logoutRequesting } from '../Auth/actions';
 import MainMenu from './MainMenu';
 
 const styles = {

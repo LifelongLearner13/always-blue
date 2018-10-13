@@ -1,31 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { loginRequesting } from '../Auth/actions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
 
-/**
- * Prevent a user from accessing a route that requires authentication.
- * @param {Object} props - All the properties passed into the component
- * @param {JSX.Element} props.component - Component to render if user is authenticated
- * @param {string} props.isAuthenticated - User's email, if they are authenticated
- * @param {Object} props.rest - Any other properties passed into the component
- */
-const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+const PrivateRoute = ({
+  component: Component,
+  isAuthenticated,
+  login,
+  ...rest
+}) => (
   <Route
     {...rest}
     render={props => {
       delete rest.to; // clean up rest, so we can pass it along to the child component
-      return isAuthenticated !== null ? (
+      return isAuthenticated ? (
         <Component {...props} {...rest} />
       ) : (
-        // If user is not authenticated redirect to `/login`
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: props.location }
-          }}
-        />
+        // If user is not authenticated initiate login
+        login(props.location) && null
       );
     }}
   />
@@ -33,13 +27,24 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
 
 PrivateRoute.propTypes = {
   component: PropTypes.func,
-  rest: PropTypes.object
+  isAuthenticated: PropTypes.bool,
+  login: PropTypes.func,
+  rest: PropTypes.object,
 };
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: isUserAuthenticated(state)
+    isAuthenticated: isUserAuthenticated(state),
   };
 };
 
-export default connect(mapStateToProps)(PrivateRoute);
+const mapDispatchToProps = dispatch => {
+  return {
+    login: path => dispatch(loginRequesting(path)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PrivateRoute);

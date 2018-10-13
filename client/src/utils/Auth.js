@@ -20,16 +20,22 @@ export default class Auth {
     this.getUserProfile = this.getUserProfile.bind(this);
   }
 
-  login() {
-    this.auth0.authorize();
+  login(path) {
+    let state = { path };
+    this.auth0.authorize({
+      state: JSON.stringify(state),
+    });
   }
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((error, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
+          console.log(authResult);
+          let { path } = JSON.parse(authResult.state);
+          path = path || '/';
           this.setSession(authResult);
-          history.replace('/');
+          history.replace(path);
           resolve(authResult);
         } else if (error) {
           history.replace('/');

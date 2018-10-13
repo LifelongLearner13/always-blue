@@ -47,13 +47,14 @@ function* login(accessToken) {
   }
 }
 
-function* loginRequest() {
+// Path represents the URL a user was trying to access
+function* loginRequest({ path }) {
   const isValid = yield call(auth.isValid);
   const accessToken = yield call(auth.getAccessToken);
   if (isValid && accessToken) {
     yield call(login, accessToken);
   } else {
-    yield call(auth.login);
+    yield call(auth.login, path);
   }
 }
 

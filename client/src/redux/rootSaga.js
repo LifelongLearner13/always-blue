@@ -1,5 +1,5 @@
 import { all, call } from 'redux-saga/effects';
-import auth from '../LogIn/sagas';
+import auth from '../Auth/sagas';
 import theme from '../ThemePicker/sagas';
 
 /**
