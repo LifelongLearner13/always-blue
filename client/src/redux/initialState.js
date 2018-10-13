@@ -2,7 +2,6 @@ export default {
   form: {},
   messages: [],
   profile: {
-    email: null,
     preferences: {},
     token: null,
   },
