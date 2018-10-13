@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import PrivateRoute from '../common/PrivateRoute';
 import Header from '../Header';
 import Profile from '../Profile';
+import Loader from '../common/Loader';
 import { loginProcessing } from '../Auth/actions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
 
@@ -22,14 +23,14 @@ class Main extends Component {
     return (
       <React.Fragment>
         <Header />
-        <Grid container spacing={24} component={'main'} direction={'column'}>
+        <main style={{ display: 'flex' }}>
           <Switch>
             <PrivateRoute path={'/profile'} component={Profile} />
             <Route
               path={'/auth'}
               render={props => {
-                this.handleAuthentication(props);
-                return <h1>Loading ...</h1>;
+                // this.handleAuthentication(props);
+                return <Loader text={'Authenticating'} />;
               }}
             />
             <Route
@@ -39,7 +40,7 @@ class Main extends Component {
               }}
             />
           </Switch>
-        </Grid>
+        </main>
       </React.Fragment>
     );
   }
