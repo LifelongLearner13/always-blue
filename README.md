@@ -6,7 +6,7 @@ Base for a full stack web application with a few more time consuming features al
 
 ### Initial Setup
 
-1. After cloning the repo, run `npm install` in the root directory and in the `/client` directory.
+1. After cloning the repo, run `npm run install` in the root directory.
 2. Ensure a Postgres server is running, then create a new database with `createdb full-stack-template`
 3. Import the database structure with `psql full-stack-template < utils/database_schema.sql`
 
