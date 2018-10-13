@@ -28,12 +28,10 @@ export default class Auth {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((error, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
-          console.log('handleAuthentication - authResult: ', authResult);
           this.setSession(authResult);
           history.replace('/');
           resolve(authResult);
         } else if (error) {
-          console.log('handleAuthentication - error: ', error);
           history.replace('/');
           reject({ error });
         }

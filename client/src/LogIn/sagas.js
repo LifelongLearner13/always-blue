@@ -73,6 +73,14 @@ function* loginProc() {
 }
 
 function* authWatcher() {
+  // Check to see if user is already logged in
+  const isValid = yield call(auth.isValid);
+  const accessToken = yield call(auth.getAccessToken);
+  if (isValid && accessToken) {
+    yield call(login, accessToken);
+  }
+
+  // Execute in parallel
   yield all([
     takeLatest(LOGIN_REQUESTING, loginRequest),
     takeLatest(LOGIN_PROCESSING, loginProc),
