@@ -5,6 +5,7 @@ import monitorReducersEnhancer from './enhancers/monitorReducers';
 
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
+import socketMiddleware from '../socket/socket_middleware';
 
 /**
  * Configure the Redux store with enhancers and middleware designed to make development
@@ -56,7 +57,7 @@ export default function configureStore(preloadedState) {
     store = createStore(
       rootReducer,
       preloadedState,
-      applyMiddleware(...middlewares)
+      applyMiddleware(...middlewares, socketMiddleware)
     );
   }
 
