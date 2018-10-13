@@ -1,4 +1,5 @@
 import { take, fork, cancel, call, put } from 'redux-saga/effects';
+import Auth from '../utils/Auth';
 import {
   LOGIN_REQUESTING,
   LOGIN_ERROR,
@@ -23,43 +24,7 @@ const LOGIN_ENDPOINT =
     ? `${window.location.origin}/api/auth/login`
     : `${process.env.REACT_APP_DEV_API_URL}/auth/login`;
 
-/**
- * API request to the `/login` endpoint. Modern browsers have
- * the Fetch API by default, but Create React App polyfills it for older browsers.
- * @param {string} email - User's email
- * @param {string} password - User's password
- */
-function loginApi(email, password) {
-  return fetch(LOGIN_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      // Check if server returned an error
-      if (!json.success) {
-        const serverError = new Error(json.message);
-        throw serverError;
-      }
-
-      return json;
-    })
-    .catch(error => {
-      // Fetch is weird when it comes to errors. This is only called when something
-      // is really wrong, so prevent potentially sensitive error messages in production
-      if (process.env.NODE_ENV === 'production') {
-        const userError = new Error('Something went wrong, please try again.');
-        throw userError;
-      } else {
-        console.warn(error);
-        throw error;
-      }
-    });
-}
-
+const auth = new Auth();
 /**
  * Saga generator for logging the user out.
  */
@@ -86,36 +51,22 @@ function* loginFlow(email, password) {
   let response;
   try {
     // Look to see if data is stored in local storage
-    let storedToken = getLocalStorage('token');
-    let storedUser = getLocalStorage('user');
+    let tokenAge = getLocalStorage('expires_at');
 
-    if (storedToken) {
+    if (tokenAge && auth.isValid(tokenAge)) {
       // If JWT was in local storage, dispatch action to log user in
+      let token = getLocalStorage('access_token');
       yield put(
         loginSuccess({
           success: true,
-          token: storedToken,
-          user: storedUser,
+          token: token,
+          user: {},
           message: 'Login Successful',
         })
       );
-
-      // Load preferences, if any are associated with user
-      if (storedUser.preferences) {
-        yield put(
-          themeSuccess({
-            success: true,
-            message: 'Saved theme loaded',
-            preferences: storedUser.preferences,
-          })
-        );
-      }
     } else {
-      // If JWT was not in local storage and nothing was passed into the generator, give up
-      if (!email || !password) return false;
-
-      // Query the server
-      response = yield call(loginApi, email, password);
+      // Redirect to Auth0
+      yield call(auth.authorize);
 
       // Add information to local storage
       yield call(setLocalStorage, 'user', response.user);
@@ -144,34 +95,14 @@ function* loginFlow(email, password) {
   return true;
 }
 
-function* loginWatcher() {
-  let loginTask = null;
-  let action = null;
-
-  // Continually watch for these instructions
-  while (true) {
-    // Wait for either `LOGOUT_REQUESTING` or LOGIN_REQUESTING` to be dispatched
-    action = yield take([LOGOUT_REQUESTING, LOGIN_REQUESTING]);
-
-    if (action.type === LOGIN_REQUESTING) {
-      const { email, password } = action;
-
-      // Non-blocking execution continues until next yield
-      loginTask = yield fork(loginFlow, email, password);
-
-      // Wait for either `LOGOUT_REQUESTING` or `LOGIN_ERROR`
-      action = yield take([LOGOUT_REQUESTING, LOGIN_ERROR]);
-
-      if (action.type === LOGOUT_REQUESTING) {
-        // User is attempting a logout, cancel initial login action if it is still running.
-        yield cancel(loginTask);
-        yield call(logout);
-      }
-    } else {
-      yield call(logout);
-    }
-  }
+function* login() {
+  console.log('login Called');
+  yield call(auth.login);
 }
 
-export { loginFlow };
-export default loginWatcher;
+function* loginProc() {
+  const result = yield call(auth.handleAuthentication);
+  console.log(result);
+}
+
+export { login, loginProc };

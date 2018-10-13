@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Lock from '@material-ui/icons/Lock';
 import Face from '@material-ui/icons/Face';
-import Auth from '../utils/Auth';
 
 const styles = theme => ({
   button: {
@@ -23,8 +22,6 @@ const styles = theme => ({
   },
 });
 
-const auth = new Auth();
-
 /**
  * Dropdown menu for account based actions. Options change depending on the
  * authentication status.
@@ -34,7 +31,7 @@ const auth = new Auth();
  */
 class AccountMenu extends Component {
   render() {
-    const { classes, isAuthenticated } = this.props;
+    const { classes, handleLogin, isAuthenticated } = this.props;
 
     return (
       <div>
@@ -42,7 +39,10 @@ class AccountMenu extends Component {
           variant={'contained'}
           color={'secondary'}
           className={classes.button}
-          onClick={() => auth.login()}
+          onClick={() => {
+            console.log('handleLogin');
+            handleLogin();
+          }}
         >
           <Lock className={classes.icon} />
           Log In
@@ -62,6 +62,7 @@ class AccountMenu extends Component {
 
 AccountMenu.propTypes = {
   isAuthenticated: PropTypes.string,
+  handleLogin: PropTypes.func,
   handleLogOut: PropTypes.func,
 };
 

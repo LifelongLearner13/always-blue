@@ -7,10 +7,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-
 import AccountMenu from './AccountMenu';
 import { isUserAuthenticated } from '../redux/stateSelectors';
-import { logoutRequesting } from '../LogIn/actions';
+import { loginRequesting, logoutRequesting } from '../LogIn/actions';
 import MainMenu from './MainMenu';
 
 const styles = {
@@ -49,7 +48,12 @@ class Header extends React.Component {
   };
 
   render() {
-    const { classes, isUserAuthenticated, logoutRequesting } = this.props;
+    const {
+      classes,
+      isUserAuthenticated,
+      loginRequesting,
+      logoutRequesting,
+    } = this.props;
     const { isMenuOpen } = this.state;
 
     return (
@@ -74,10 +78,11 @@ class Header extends React.Component {
               color="inherit"
               className={classes.flex}
             >
-              Full Stack Template
+              Always Blue
             </Typography>
             <AccountMenu
               isAuthenticated={isUserAuthenticated}
+              handleLogin={loginRequesting}
               handleLogOut={logoutRequesting}
             />
           </Toolbar>
@@ -98,6 +103,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
+  loginRequesting: () => {
+    console.log('loginRequesting');
+    dispatch(loginRequesting());
+  },
   logoutRequesting: () => dispatch(logoutRequesting()),
 });
 
