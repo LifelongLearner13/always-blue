@@ -1,0 +1,247 @@
+{
+  "data" : [
+    {
+      "text" : "Can I speak to a lawyer",
+      "entities" : [
+        {
+          "entity" : "lawyer",
+          "value" : "\"lawyer\""
+        }
+      ]
+    },
+    {
+      "text" : "Doctor",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "Hospital",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "I need a doctor",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "I need help finding a job",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "I need help finding a lawyer",
+      "entities" : [
+        {
+          "entity" : "lawyer",
+          "value" : "\"lawyer\""
+        }
+      ]
+    },
+    {
+      "text" : "I need legal help",
+      "entities" : [
+        {
+          "entity" : "lawyer",
+          "value" : "\"lawyer\""
+        }
+      ]
+    },
+    {
+      "text" : "I need money",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "I need to find work",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "I need to make money",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "I need to make money for my family",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "I need to talk to a lawyer",
+      "entities" : [
+        {
+          "entity" : "lawyer",
+          "value" : "\"lawyer\""
+        }
+      ]
+    },
+    {
+      "text" : "I'm looking for a hospital",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "I'm looking for a job",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "I'm looking for a lawyer",
+      "entities" : [
+        {
+          "entity" : "lawyer",
+          "value" : "\"lawyer\""
+        }
+      ]
+    },
+    {
+      "text" : "I'm looking for work",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "Job",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "Lawyer",
+      "entities" : [
+        {
+          "entity" : "lawyer",
+          "value" : "\"lawyer\""
+        }
+      ]
+    },
+    {
+      "text" : "Legal",
+      "entities" : [
+        {
+          "entity" : "lawyer",
+          "value" : "\"lawyer\""
+        }
+      ]
+    },
+    {
+      "text" : "Looking to provide for my loved ones",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    },
+    {
+      "text" : "Medical Professional",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "My child is sick",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "My child needs help",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "My child needs medical attention",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "Sick",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "Sickness",
+      "entities" : [
+        {
+          "entity" : "child",
+          "value" : "\"medical\""
+        }
+      ]
+    },
+    {
+      "text" : "Work",
+      "entities" : [
+        {
+          "entity" : "job",
+          "value" : "\"job\""
+        }
+      ]
+    }
+  ]
+}

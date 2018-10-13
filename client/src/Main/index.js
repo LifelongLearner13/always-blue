@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
 import PrivateRoute from '../common/PrivateRoute';
 import Header from '../Header';
 import Profile from '../Profile';
+import Loader from '../common/Loader';
 import { loginProcessing } from '../Auth/actions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
+import ChatList from '../Chat/ChatList';
 
 class Main extends Component {
   constructor(props) {
@@ -22,14 +23,15 @@ class Main extends Component {
     return (
       <React.Fragment>
         <Header />
-        <Grid container spacing={24} component={'main'} direction={'column'}>
+        <main style={{ display: 'flex' }}>
           <Switch>
             <PrivateRoute path={'/profile'} component={Profile} />
+            <PrivateRoute path={'/chat'} component={ChatList} />
             <Route
               path={'/auth'}
               render={props => {
                 this.handleAuthentication(props);
-                return <h1>Loading ...</h1>;
+                return <Loader text={'Authenticating'} />;
               }}
             />
             <Route
@@ -39,7 +41,7 @@ class Main extends Component {
               }}
             />
           </Switch>
-        </Grid>
+        </main>
       </React.Fragment>
     );
   }
