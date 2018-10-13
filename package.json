@@ -14,7 +14,8 @@
     "dev:server": "NODE_ENV=development nodemon -r dotenv/config server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run dev:server\" \"npm run dev:client\"",
     "prod:client": "cd client && npm run build",
-    "prod": "NODE_ENV=production node -r dotenv/config server.js"
+    "prod": "NODE_ENV=production node -r dotenv/config server.js",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -37,11 +38,14 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-promise-router": "^3.0.3",
+    "jest": "^23.6.0",
     "jsonwebtoken": "^8.3.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.4.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
     "socket.io": "^2.1.1"
   }
 }
