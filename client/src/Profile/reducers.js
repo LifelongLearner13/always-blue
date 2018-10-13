@@ -6,16 +6,14 @@ export default (state = initialState.profile, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return {
-        email: user.email,
-        preferences: user.preferences,
-        token
+        user,
+        token,
       };
 
     case LOGOUT_SUCCESS:
       return {
-        email: null,
-        preferences: {},
-        token: null
+        user: {},
+        token: null,
       };
 
     default:

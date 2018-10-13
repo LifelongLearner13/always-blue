@@ -35,13 +35,13 @@ function* login(accessToken) {
     })
   );
 
-  const preferences = yield call(getLocalStorage, 'user_preferences');
+  const preferences = yield call(getLocalStorage, 'preferences');
   if (preferences) {
     yield put(
       themeSuccess({
         success: true,
         message: 'Saved theme loaded',
-        preferences,
+        ...preferences,
       })
     );
   }

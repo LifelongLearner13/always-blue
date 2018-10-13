@@ -4,6 +4,7 @@ import {
   setLocalStorage,
   getLocalStorage,
   removeLocalStorage,
+  clearLocalStorage,
 } from '../utils/localStorage';
 
 export default class Auth {
@@ -54,10 +55,8 @@ export default class Auth {
   }
 
   logout() {
-    // Clear Access Token and ID Token from local storage
-    removeLocalStorage('access_token');
-    removeLocalStorage('id_token');
-    removeLocalStorage('expires_at');
+    // Clear all values stored in local storage
+    clearLocalStorage();
     // navigate to the home route
     history.replace('/');
   }

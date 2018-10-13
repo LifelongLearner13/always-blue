@@ -27,7 +27,7 @@ const PrivateRoute = ({
 
 PrivateRoute.propTypes = {
   component: PropTypes.func,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.string,
   login: PropTypes.func,
   rest: PropTypes.object,
 };
