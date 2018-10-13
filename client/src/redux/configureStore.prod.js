@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
+import socketMiddleware from '../socket/socket_middleware';
 
 /**
  * Much simpler version of `configureStore.dev.js`. Setup the Redux store for production use.
@@ -14,7 +15,7 @@ export default function configureStore(preloadedState) {
   const store = createStore(
     rootReducer,
     preloadedState,
-    applyMiddleware(...middlewares)
+    applyMiddleware(...middlewares, socketMiddleware)
   );
 
   // Start Redux Saga
