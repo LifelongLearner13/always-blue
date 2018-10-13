@@ -1,9 +1,9 @@
 import auth0 from 'auth0-js';
-import history from './history';
+import history from '../utils/history';
 import {
   setLocalStorage,
   getLocalStorage,
-  clearLocalStorage,
+  removeLocalStorage,
 } from '../utils/localStorage';
 
 export default class Auth {
@@ -53,8 +53,10 @@ export default class Auth {
   }
 
   logout() {
-    // Clear all values stored in local storage
-    clearLocalStorage();
+    removeLocalStorage('access_token');
+    removeLocalStorage('id_token');
+    removeLocalStorage('expires_at');
+    removeLocalStorage('user_profile');
     // navigate to the home route
     history.replace('/');
   }

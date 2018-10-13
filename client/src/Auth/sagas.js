@@ -1,5 +1,5 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
-import Auth from '../utils/Auth';
+import Auth from './Auth0';
 import {
   LOGIN_PROCESSING,
   LOGIN_REQUESTING,
