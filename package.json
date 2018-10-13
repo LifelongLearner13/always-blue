@@ -32,6 +32,7 @@
     "prettier": "1.14.2"
   },
   "dependencies": {
+    "auth0-js": "^9.8.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",

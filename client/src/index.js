@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-
+import { Router } from 'react-router-dom';
+import history from './utils/history';
 import configureStore from './redux';
 import App from './App';
 import DyThemeProvider from './ThemePicker/DyThemeProvider';
@@ -17,7 +17,7 @@ const store = configureStore(initialState);
 const renderApp = () =>
   render(
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         <DyThemeProvider>
           <App />
         </DyThemeProvider>

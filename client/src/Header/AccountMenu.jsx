@@ -1,35 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
+import Lock from '@material-ui/icons/Lock';
+import Face from '@material-ui/icons/Face';
 
 const styles = theme => ({
-  menuList: {
-    padding: 0
-  },
-  linkButton: {
+  button: {
+    margin: theme.spacing.unit,
     '&:hover': {
       backgroundColor: theme.palette.secondary[100],
-      color: theme.palette.getContrastText(theme.palette.secondary[100])
+      color: theme.palette.getContrastText(theme.palette.secondary[100]),
     },
     '&:focus': {
       backgroundColor: theme.palette.secondary[100],
-      color: theme.palette.getContrastText(theme.palette.secondary[100])
-    }
-  },
-  link: {
-    textDecoration: 'none',
-    '&:visited': {
-      color: theme.palette.text.primary
+      color: theme.palette.getContrastText(theme.palette.secondary[100]),
     },
-    '&:active': {
-      color: theme.palette.text.primary
-    }
-  }
+  },
+  icon: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 /**
@@ -40,95 +30,31 @@ const styles = theme => ({
  * @param {Function} props.handleLogOut - Callback to execute when user logs out.
  */
 class AccountMenu extends Component {
-  state = {
-    anchorEl: null
-  };
-
-  onMenuOpen = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  onMenuClose = event => {
-    this.setState({ anchorEl: null });
-  };
-
-  handleLogOut = () => {
-    this.onMenuClose();
-    this.props.handleLogOut();
-  };
-
   render() {
-    const { classes, isAuthenticated } = this.props;
-    const { anchorEl } = this.state;
-    const open = Boolean(anchorEl);
-    const menuContent = isAuthenticated
-      ? [
-          <MenuItem
-            key={'profile'}
-            onClick={this.onMenuClose}
-            className={classes.linkButton}
-          >
-            <NavLink to={'/profile'} className={classes.link}>
-              Profile
-            </NavLink>
-          </MenuItem>,
-          <MenuItem
-            key={'logOut'}
-            onClick={this.onMenuClose}
-            className={classes.linkButton}
-          >
-            <NavLink
-              to={'/'}
-              onClick={this.handleLogOut}
-              className={classes.link}
-            >
-              Log Out
-            </NavLink>
-          </MenuItem>
-        ]
-      : [
-          <MenuItem key={'logIn'} className={classes.linkButton}>
-            <NavLink to={'/login'} className={classes.link}>
-              Log In
-            </NavLink>
-          </MenuItem>,
-          <MenuItem key={'signUp'} className={classes.linkButton}>
-            <NavLink to={'/signup'} className={classes.link}>
-              Sign Up
-            </NavLink>
-          </MenuItem>
-        ];
+    const { classes, handleLogin, isAuthenticated } = this.props;
+
     return (
       <div>
-        <IconButton
-          aria-owns={open ? 'account-menu' : null}
-          aria-haspopup="true"
-          onClick={this.onMenuOpen}
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          id="account-menu"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
-          open={open}
-          onClose={this.onMenuClose}
-          MenuListProps={{
-            classes: {
-              padding: classes.menuList
-            }
+        <Button
+          variant={'contained'}
+          color={'secondary'}
+          className={classes.button}
+          onClick={() => {
+            console.log('handleLogin');
+            handleLogin();
           }}
         >
-          {menuContent}
-        </Menu>
+          <Lock className={classes.icon} />
+          Log In
+        </Button>
+        <Button
+          variant={'contained'}
+          color={'secondary'}
+          className={classes.button}
+        >
+          <Face className={classes.icon} />
+          Sign Up
+        </Button>
       </div>
     );
   }
@@ -136,7 +62,8 @@ class AccountMenu extends Component {
 
 AccountMenu.propTypes = {
   isAuthenticated: PropTypes.string,
-  handleLogOut: PropTypes.func
+  handleLogin: PropTypes.func,
+  handleLogOut: PropTypes.func,
 };
 
 export default withStyles(styles)(AccountMenu);

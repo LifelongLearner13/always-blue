@@ -4,21 +4,17 @@ export default {
   profile: {
     email: null,
     preferences: {},
-    token: null
-  },
-  signup: {
-    requesting: false,
-    success: false
+    token: null,
   },
   login: {
     requesting: false,
-    success: false
+    success: false,
   },
   theme: {
     requesting: false,
     success: false,
-    primary: 'Indigo',
-    secondary: 'Blue',
-    error: 'Red'
-  }
+    primary: 'Blue',
+    secondary: 'Deep Purple',
+    error: 'Red',
+  },
 };
