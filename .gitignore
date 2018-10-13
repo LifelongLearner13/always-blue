@@ -1,6 +1,9 @@
 # Node based .gitignore
 # Source: https://github.com/github/gitignore/blob/master/Node.gitignore
 
+# VSCode
+.vscode/
+
 # Logs
 logs
 *.log
