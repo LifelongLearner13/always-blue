@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,40 +14,35 @@ const styles = theme => ({
   avatar: {
     margin: `${theme.spacing.unit * 6}px auto`,
     backgroundColor: theme.palette.primary.main,
-    width: '60px',
-    height: '60px'
+    width: 100,
+    height: 100,
   },
   avatarIcon: {
-    width: '2.5em',
-    height: '2.5em'
+    width: '100%',
+    height: '100%',
   },
   section: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     width: '80%',
-    margin: '0 auto'
+    margin: '0 auto',
   },
   sectionTitle: {
-    marginBottom: theme.spacing.unit * 2
-  }
+    marginBottom: theme.spacing.unit * 2,
+  },
 });
 
-/**
- * Layout for the Profile page.
- * @param {Object} props - Properties passed to the component
- * @param {Object} props.classes - Customization to the Material-UI theme
- * @param {profile} props.profile - Information stored in the Redux store
- */
 class Profile extends Component {
   render() {
     const { classes, profile } = this.props;
+    let { name, picture } = profile.user;
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Grid item xs={12} component={'section'}>
-          <Avatar className={classes.avatar}>
-            <FaceIcon className={classes.avatarIcon} />
+          <Avatar className={classes.avatar} src={picture || null}>
+            {picture ? null : <FaceIcon className={classes.avatarIcon} />}
           </Avatar>
           <Typography
             align={'center'}
@@ -70,30 +65,30 @@ class Profile extends Component {
             <Grid container spacing={24} justify={'center'}>
               <Grid item xs={5}>
                 <Typography component={'p'} variant={'subheading'}>
-                  Email
+                  Name
                 </Typography>
               </Grid>
               <Grid item xs={5}>
                 <Typography component={'p'} variant={'subheading'}>
-                  {profile.email}
+                  {name}
                 </Typography>
               </Grid>
             </Grid>
           </Paper>
         </Grid>
         <ThemePicker />
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
 
 Profile.propTypes = {
   profile: PropTypes.object,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  profile: getUserProfile(state)
+  profile: getUserProfile(state),
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Profile));

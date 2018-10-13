@@ -4,6 +4,7 @@ import {
   THEME_SUCCESS,
   THEME_ERROR,
   THEME_RESET,
+  LOGOUT_SUCCESS,
 } from '../redux/constants';
 
 /**
@@ -32,6 +33,7 @@ export default (state = initialState.theme, action) => {
         requesting: false,
         success,
       };
+    case LOGOUT_SUCCESS: // Logging out automatically resets the theme
     case THEME_RESET:
       return {
         ...state,

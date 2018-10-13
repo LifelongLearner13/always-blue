@@ -36,12 +36,12 @@ function* login(accessToken) {
   );
 
   const preferences = yield call(getLocalStorage, 'preferences');
-  if (preferences) {
+  if (preferences && preferences.theme) {
     yield put(
       themeSuccess({
         success: true,
         message: 'Saved theme loaded',
-        ...preferences,
+        theme: preferences.theme,
       })
     );
   }

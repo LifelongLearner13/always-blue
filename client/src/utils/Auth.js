@@ -3,7 +3,6 @@ import history from './history';
 import {
   setLocalStorage,
   getLocalStorage,
-  removeLocalStorage,
   clearLocalStorage,
 } from '../utils/localStorage';
 
@@ -32,7 +31,6 @@ export default class Auth {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((error, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
-          console.log(authResult);
           let { path } = JSON.parse(authResult.state);
           path = path || '/';
           this.setSession(authResult);

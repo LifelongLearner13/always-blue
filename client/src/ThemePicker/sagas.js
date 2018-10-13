@@ -12,11 +12,19 @@ function* themeFlow({ primary, secondary }) {
       throw error;
     }
     let preferences = yield call(getLocalStorage, 'preferences');
-    preferences = preferences
-      ? { ...preferences, ...{ theme: { primary, secondary } } }
-      : { preferences: { theme: { primary, secondary } } };
+    if (preferences && preferences.theme) {
+      preferences.theme = { primary, secondary };
+    } else {
+      preferences = { theme: { primary, secondary } };
+    }
     yield call(setLocalStorage, 'preferences', preferences);
-    yield put(themeSuccess(preferences));
+    yield put(
+      themeSuccess({
+        success: true,
+        message: 'Saved theme loaded',
+        theme: preferences.theme,
+      })
+    );
   } catch (error) {
     // If request failed, dispatch action to the store.
     yield put(themeError({ success: false, message: error.message }));
