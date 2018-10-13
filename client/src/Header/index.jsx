@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -7,9 +7,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountMenu from './AccountMenu';
+import HeaderActions from './HeaderActions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
-import { loginRequesting, logoutRequesting } from '../LogIn/actions';
+import { loginRequesting, logoutRequesting } from '../Auth/actions';
 import MainMenu from './MainMenu';
 
 const styles = {
@@ -25,12 +25,7 @@ const styles = {
   },
 };
 
-/**
- * Header displayed on all major pages.
- * @param {Object} props - All the properties passed into the component
- * @param {Object} props.classes - Customization to the Material-UI theme
- */
-class Header extends React.Component {
+class Header extends Component {
   state = {
     isMenuOpen: false,
   };
@@ -55,7 +50,6 @@ class Header extends React.Component {
       logoutRequesting,
     } = this.props;
     const { isMenuOpen } = this.state;
-
     return (
       <header>
         <AppBar position="static">
@@ -80,7 +74,7 @@ class Header extends React.Component {
             >
               Always Blue
             </Typography>
-            <AccountMenu
+            <HeaderActions
               isAuthenticated={isUserAuthenticated}
               handleLogin={loginRequesting}
               handleLogOut={logoutRequesting}
@@ -103,10 +97,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  loginRequesting: () => {
-    console.log('loginRequesting');
-    dispatch(loginRequesting());
-  },
+  loginRequesting: () => dispatch(loginRequesting()),
   logoutRequesting: () => dispatch(logoutRequesting()),
 });
 

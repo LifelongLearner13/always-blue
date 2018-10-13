@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import PrivateRoute from '../common/PrivateRoute';
 import Header from '../Header';
 import Profile from '../Profile';
-import { loginProcessing } from '../LogIn/actions';
+import { loginProcessing } from '../Auth/actions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
 
 class Main extends Component {
