@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
 import PrivateRoute from '../common/PrivateRoute';
 import Header from '../Header';
 import Profile from '../Profile';
@@ -9,12 +8,13 @@ import Loader from '../common/Loader';
 import { loginProcessing } from '../Auth/actions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
 import io from 'socket.io-client';
+import ChatList from '../Chat/ChatList';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.handleAuthentication = this.handleAuthentication.bind(this);
-    let socket = io.connect("http://localhost:4000");
+    let socket = io.connect('http://localhost:4000');
   }
   handleAuthentication = (nextState, replace) => {
     if (/access_token|id_token|error/.test(nextState.location.hash)) {
@@ -28,10 +28,11 @@ class Main extends Component {
         <main style={{ display: 'flex' }}>
           <Switch>
             <PrivateRoute path={'/profile'} component={Profile} />
+            <PrivateRoute path={'/chat'} component={ChatList} />
             <Route
               path={'/auth'}
               render={props => {
-                // this.handleAuthentication(props);
+                this.handleAuthentication(props);
                 return <Loader text={'Authenticating'} />;
               }}
             />
