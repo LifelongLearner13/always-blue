@@ -1,0 +1,21 @@
+{
+  "data" : {
+    "lookups" : [
+      "trait"
+    ],
+    "name" : "immagration",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "immagration",
+    "values" : [
+      {
+        "value" : "lawyer_immagration",
+        "expressions" : [
+          "lawyer_immagration"
+        ]
+      }
+    ],
+    "doc" : "User-defined entity",
+    "builtin" : false
+  }
+}

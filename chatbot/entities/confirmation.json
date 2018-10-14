@@ -1,0 +1,39 @@
+{
+  "data" : {
+    "lookups" : [
+      "trait"
+    ],
+    "name" : "confirmation",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "confirmation",
+    "values" : [
+      {
+        "value" : "no",
+        "expressions" : [
+          "no"
+        ]
+      },
+      {
+        "value" : "no_spanish",
+        "expressions" : [
+          "no_spanish"
+        ]
+      },
+      {
+        "value" : "yes",
+        "expressions" : [
+          "yes"
+        ]
+      },
+      {
+        "value" : "yes_spanish",
+        "expressions" : [
+          "yes_spanish"
+        ]
+      }
+    ],
+    "doc" : "User-defined entity",
+    "builtin" : false
+  }
+}
