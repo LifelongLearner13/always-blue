@@ -8,21 +8,20 @@ const styles = theme => ({
     display: 'block',
     position: 'relative',
     width: 50,
-    height: 50
+    height: 50,
   },
   box: {
     display: 'block',
-    width: 48,
-    height: 48,
-    border: '1px solid #FFFFFF'
+    height: 50,
+    border: '1px solid #FFFFFF',
   },
   icon: {
     position: 'absolute',
     color: '#FFFFFF',
     fontSize: '40px',
     top: '5px',
-    left: '2px'
-  }
+    left: '2px',
+  },
 });
 
 /**
@@ -40,7 +39,7 @@ const BoxWithCheck = ({ classes, color }) => (
 
 BoxWithCheck.propTypes = {
   classes: PropTypes.object,
-  color: PropTypes.string
+  color: PropTypes.string,
 };
 
 export default withStyles(styles)(BoxWithCheck);

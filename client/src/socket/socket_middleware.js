@@ -3,24 +3,19 @@ import { SENT_CHAT_MSG, GOT_CHAT_MSG } from '../redux/constants';
 import { store } from '../index';
 
 export default function socketMiddleware() {
-  const socket = io.connect("http://localhost:4000");
+  const socket = io.connect('http://localhost:4000');
 
   socket.on('bot msg', botData => {
     console.log(botData);
-    store.dispatch({type: GOT_CHAT_MSG, payload: botData});
+    store.dispatch({ type: GOT_CHAT_MSG, payload: botData });
   });
 
-  return ({ dispatch }) => next => (action) => {
+  return ({ dispatch }) => next => action => {
     if (typeof action === 'function') {
       return next(action);
     }
 
-    const {
-      event,
-      leave,
-      handle,
-      ...rest
-    } = action;
+    const { event, leave, handle } = action;
 
     if (!event) {
       return next(action);
@@ -34,7 +29,7 @@ export default function socketMiddleware() {
     if (typeof handleEvent === 'string') {
       if (handleEvent === 'newMsg') {
         socket.emit('new message', action.payload);
-        dispatch({type: SENT_CHAT_MSG, payload: action.payload});
+        dispatch({ type: SENT_CHAT_MSG, payload: action.payload });
       }
     }
     return socket.on(event, handleEvent);
