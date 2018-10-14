@@ -60,7 +60,20 @@ mount404(app);
 mountErrorHandler(app);
 
 /* ---- Set port and start server ---- */
+let port =
+  process.env.NODE_ENV === 'production'
+    ? process.env.PORT
+    : process.env.DEVELOPMENT_PORT;
 
+const server = app.listen(port, () => {
+  console.log(
+    `Node app is running on port: ${port} with environment: ${
+      process.env.NODE_ENV
+    }`
+  );
+});
+
+<<<<<<< Updated upstream
 const runServer = callback => {
   let port =
     process.env.NODE_ENV === 'production'
@@ -80,6 +93,9 @@ const runServer = callback => {
 };
 
 const io = require('socket.io')(runServer());
+=======
+const io = require('socket.io')(server);
+>>>>>>> Stashed changes
 
 io.on('connection', socket => {
   const greetingMsg = bot.getGreeting();
@@ -106,4 +122,3 @@ io.on('connection', socket => {
 });
 
 exports.app = app;
-exports.runServer = runServer;
