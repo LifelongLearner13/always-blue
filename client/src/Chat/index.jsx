@@ -37,7 +37,6 @@ const styles = theme => ({
 
 class Chat extends Component {
   submitCallback = formData => {
-    console.log('this here');
     const { dispatch } = this.props;
     dispatch({
       event: true,
@@ -45,8 +44,6 @@ class Chat extends Component {
       payload: formData,
     });
     formData.message = '';
-
-    console.log('form submitted: ', formData);
   };
   
   render() {

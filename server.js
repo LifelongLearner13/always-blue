@@ -9,6 +9,7 @@ const mountErrorHandler = require('./utils/errorHandlers');
 const mount404 = require('./utils/404Handler');
 const mountAuth = require('./auth/middleware');
 const bot = require('./bot');
+const response = require('./bot_response');
 
 /* ---- Initial Setup ---- */
 const app = express();
@@ -90,9 +91,20 @@ io.on('connection', socket => {
   socket.on('new message', userMsg => {
     console.log(userMsg);
     // send data to chatbot class
-    let msg = bot.getMessage(userMsg);
-    console.log(msg);
-    socket.emit('bot msg', msg);
+    let msg = bot.getMessage(userMsg.message).then(entity => {
+      if (!entity[0] in response) {
+        let arr = response['none'];
+        let idx = Math.floor(Math.random() * arr.length);
+        return arr[idx];
+      }
+      let arr = response[entity[0]][entity[1]];
+      let idx = Math.floor(Math.random() * arr.length);
+      const msg = arr[idx];
+      console.log('*****');
+      console.log(msg);
+      console.log('*****');
+      socket.emit('bot msg', [msg]);
+    });
   });
 });
 
