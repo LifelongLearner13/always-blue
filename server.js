@@ -8,6 +8,7 @@ const mountAPIRoutes = require('./utils/mountAPIRoutes');
 const mountErrorHandler = require('./utils/errorHandlers');
 const mount404 = require('./utils/404Handler');
 const mountAuth = require('./auth/middleware');
+const bot = require('./bot');
 
 /* ---- Initial Setup ---- */
 const app = express();
@@ -92,11 +93,14 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 io.on('connection', socket => {
-  socket.on('new message', newData => {
-    console.log(newData);
+  const greetingMsg = bot.getGreeting();
+  console.log(greetingMsg);
+  socket.emit('bot msg', greetingMsg);
+  socket.on('new message', userMsg => {
+    console.log(userMsg);
     // send data to chatbot class
-    //let msg = chatbot(newData);
-    let msg = 'got a messege from the chat bot';
+    let msg = bot.getMessage(userMsg);
+    console.log(msg);
     socket.emit('bot msg', msg);
   });
 });

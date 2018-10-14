@@ -20,6 +20,10 @@ export const getMessages = state => {
   return state.messages;
 };
 
+export const getUser = state => {
+  return state.profile.user;
+};
+
 export const getUserProfile = state => {
   return state.profile;
 };
