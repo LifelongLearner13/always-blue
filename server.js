@@ -3,11 +3,8 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const passport = require('passport');
-const mountAPIRoutes = require('./utils/mountAPIRoutes');
 const mountErrorHandler = require('./utils/errorHandlers');
 const mount404 = require('./utils/404Handler');
-const mountAuth = require('./auth/middleware');
 const bot = require('./bot');
 const response = require('./bot_response');
 
@@ -70,7 +67,7 @@ const runServer = callback => {
       ? process.env.PORT
       : process.env.DEVELOPMENT_PORT;
 
-  const server = app.listen(port, () => {
+  return (server = app.listen(port, () => {
     console.log(
       `Node app is running on port: ${port} with environment: ${
         process.env.NODE_ENV
@@ -79,7 +76,7 @@ const runServer = callback => {
     if (callback) {
       callback(server);
     }
-  });
+  }));
 };
 
 const io = require('socket.io')(runServer());

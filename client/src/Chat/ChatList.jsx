@@ -8,25 +8,6 @@ import FaceIcon from '@material-ui/icons/FaceOutlined';
 import blue from '@material-ui/core/colors/blue';
 import { connect } from 'react-redux';
 
-const data = [
-  {
-    type: 'bot',
-    time: '10:00 am',
-    message:
-      'hello jirtjiejlej jfoejfoejo3j jfojgoejgoejog jfojgoejgoej jeojeojgeo jfjwjfowj jfjjkj',
-  },
-  {
-    type: 'user',
-    time: '10:01 am',
-    message: 'hello',
-  },
-  {
-    type: 'bot',
-    time: '10:02 am',
-    message: 'hello',
-  },
-];
-
 const styles = theme => ({
   list: {
     listStyle: 'none',

@@ -8,9 +8,9 @@ export default function socketMiddleware() {
   socket.on('bot msg', botData => {
     console.log(botData);
     if (botData) {
-      store.dispatch({type: GOT_CHAT_MSG, payload: {msg: botData[0]}});
+      store.dispatch({ type: GOT_CHAT_MSG, payload: { msg: botData[0] } });
       if (botData.length > 1) {
-        store.dispatch({type: GOT_CHAT_MSG, payload: {msg: botData[1]}});
+        store.dispatch({ type: GOT_CHAT_MSG, payload: { msg: botData[1] } });
       }
     }
   });
