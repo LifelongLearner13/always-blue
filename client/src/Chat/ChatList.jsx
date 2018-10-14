@@ -25,17 +25,6 @@ const data = [
 ];
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    flexGrow: 1,
-    padding: theme.spacing.unit * 2,
-  },
-  paper: {
-    width: '80%',
-  },
   list: {
     listStyle: 'none',
     display: 'flex',
@@ -92,29 +81,36 @@ class ChatList extends Component {
   render() {
     const { classes, dispatch } = this.props;
     return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
-          <ol className={classes.list}>
-            {data.map((el, idx) => (
-              <li
-                key={el.name}
-                className={ClassNames(
-                  classes.item,
-                  idx % 2 === 0 ? 'left' : 'right'
-                )}
-              >
-                <Typography>
-                  {el.name} - {el.time}
-                </Typography>
-                <Paper className={classes.chatItem}>
-                  <Typography>{el.message}</Typography>
-                </Paper>
-              </li>
-            ))}
-          </ol>
-        </Paper>
-        <button type="button" onClick={() => dispatch({event: true, handle: 'newMsg', payload: 'some chat msg to send the server'})}>Click Me!</button> 
-      </div>
+      <ol className={classes.list}>
+        {data.map((el, idx) => (
+          <li
+            key={el.name}
+            className={ClassNames(
+              classes.item,
+              idx % 2 === 0 ? 'left' : 'right'
+            )}
+          >
+            <Typography>
+              {el.name} - {el.time}
+            </Typography>
+            <Paper className={classes.chatItem}>
+              <Typography>{el.message}</Typography>
+            </Paper>
+          </li>
+        ))}
+      </ol>
+      // <button
+      //   type="button"
+      //   onClick={() =>
+      //     dispatch({
+      //       event: true,
+      //       handle: 'newMsg',
+      //       payload: 'some chat msg to send the server',
+      //     })
+      //   }
+      // >
+      //   Click Me!
+      // </button>
     );
   }
 }
@@ -123,4 +119,4 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default withStyles(styles)(connect(mapStateToProps)(ChatList));
+export default connect(mapStateToProps)(withStyles(styles)(ChatList));

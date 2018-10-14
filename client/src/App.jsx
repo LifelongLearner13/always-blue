@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './Main';
@@ -10,12 +10,12 @@ import Main from './Main';
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         <CssBaseline />
         <Switch>
           <Route component={Main} />
         </Switch>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
