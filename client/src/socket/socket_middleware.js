@@ -1,7 +1,9 @@
 import { SENT_CHAT_MSG, GOT_CHAT_MSG } from '../redux/constants';
 import { store } from '../index';
 import io from 'socket.io-client';
+
 const socket = io();
+
 socket.on('bot msg', botData => {
   console.log(botData);
   if (botData) {
