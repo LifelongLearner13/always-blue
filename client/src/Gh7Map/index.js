@@ -184,7 +184,7 @@ class Gh7map extends Component {
 			displayName = nameEnglish;
         }			
 			
-        var label = `${nameEspanol} - ${category}`;
+        var label = `${displayName} - ${category}`;
         const geojsonFeature = {
           type: 'Feature',
           properties: {
