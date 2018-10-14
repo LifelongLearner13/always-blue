@@ -29,13 +29,19 @@ const getGreeting = () => {
 
 // process all of the bot messages here
 const processMessage = message => {
-  let entity = getMessage(message);
-  let arr = response[entity];
-  let idx = Math.floor(Math.random() * arr.length);
-  return arr[idx];
+  getMessage(message).then(entity => {
+    if (!entity[0] in response) {
+      let arr = response['none'];
+      let idx = Math.floor(Math.random() * arr.length);
+      return arr[idx];
+    }
+    let arr = response[entity[0]][entity[1]];
+    let idx = Math.floor(Math.random() * arr.length);
+    return arr[idx];
+  });
 };
 
-const getMessage = message => {
+const getMessage = async message => {
   const apiendpoint = 'message';
   message = encodeURI(message);
   const endpoint = `${URL}/${apiendpoint}`;
@@ -53,13 +59,12 @@ const getMessage = message => {
     json: true,
   };
   //return options;
-  rp(options)
-    .then(data => {
-      return extractEntity(data);
-    })
-    .catch(err => {
-      return 'none';
-    });
+  try {
+    let data = await rp(options);
+    return extractEntity(data);
+  } catch (e) {
+    return 'none';
+  }
 };
 
 const getEntity = () => {
@@ -98,6 +103,8 @@ const extractEntity = object => {
   }
   return null;
 };
+
+processMessage('estoy buscando un trabajo');
 
 module.exports = {
   TOKEN,
