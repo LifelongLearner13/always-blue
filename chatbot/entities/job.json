@@ -1,0 +1,27 @@
+{
+  "data" : {
+    "lookups" : [
+      "trait"
+    ],
+    "name" : "job",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "job",
+    "values" : [
+      {
+        "value" : "job",
+        "expressions" : [
+          "english"
+        ]
+      },
+      {
+        "value" : "job_spanish",
+        "expressions" : [
+          "spanish"
+        ]
+      }
+    ],
+    "doc" : "User-defined entity",
+    "builtin" : false
+  }
+}

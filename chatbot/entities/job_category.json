@@ -1,0 +1,75 @@
+{
+  "data" : {
+    "lookups" : [
+      "trait"
+    ],
+    "name" : "job_category",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "job_category",
+    "values" : [
+      {
+        "value" : "agriculture",
+        "expressions" : [
+          "agriculture"
+        ]
+      },
+      {
+        "value" : "agriculture_spanish",
+        "expressions" : [
+          "agriculture_spanish"
+        ]
+      },
+      {
+        "value" : "automotive",
+        "expressions" : [
+          "automotive"
+        ]
+      },
+      {
+        "value" : "automotive_spanish",
+        "expressions" : [
+          "automotive_spanish"
+        ]
+      },
+      {
+        "value" : "construction",
+        "expressions" : [
+          "construction"
+        ]
+      },
+      {
+        "value" : "construction_spanish",
+        "expressions" : [
+          "construction_spanish"
+        ]
+      },
+      {
+        "value" : "labor",
+        "expressions" : [
+          "day_labor"
+        ]
+      },
+      {
+        "value" : "labor_spanish",
+        "expressions" : [
+          "labor_spanish"
+        ]
+      },
+      {
+        "value" : "maid",
+        "expressions" : [
+          "maid"
+        ]
+      },
+      {
+        "value" : "maid_spanish",
+        "expressions" : [
+          "main_spanish"
+        ]
+      }
+    ],
+    "doc" : "User-defined entity",
+    "builtin" : false
+  }
+}
