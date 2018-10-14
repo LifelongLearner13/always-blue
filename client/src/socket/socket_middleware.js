@@ -2,19 +2,19 @@ import io from 'socket.io-client';
 import { SENT_CHAT_MSG, GOT_CHAT_MSG } from '../redux/constants';
 import { store } from '../index';
 
-export default function socketMiddleware() {
-  const socket = io.connect();
+const socket = io();
 
-  socket.on('bot msg', botData => {
-    console.log(botData);
-    if (botData) {
-      store.dispatch({ type: GOT_CHAT_MSG, payload: { msg: botData[0] } });
-      if (botData.length > 1) {
-        store.dispatch({ type: GOT_CHAT_MSG, payload: { msg: botData[1] } });
-      }
+socket.on('bot msg', botData => {
+  console.log(botData);
+  if (botData) {
+    store.dispatch({ type: GOT_CHAT_MSG, payload: { msg: botData[0] } });
+    if (botData.length > 1) {
+      store.dispatch({ type: GOT_CHAT_MSG, payload: { msg: botData[1] } });
     }
-  });
+  }
+});
 
+export default function socketMiddleware() {
   return ({ dispatch }) => next => action => {
     if (typeof action === 'function') {
       return next(action);
