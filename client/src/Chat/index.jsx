@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { reduxForm } from 'redux-form';
 import { Field } from 'redux-form';
@@ -11,7 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import ChatList from './ChatList';
 import TextFieldWrapper from '../common/TextFieldWrapper';
-import TextField from '@material-ui/core/TextField';
+import { getUser } from '../redux/stateSelectors';
 
 const styles = theme => ({
   root: {
@@ -41,16 +40,16 @@ class Chat extends Component {
     console.log('form submitted: ', formData);
   };
   render() {
-    const { classes, handleSubmit } = this.props;
+    const { classes, user, handleSubmit } = this.props;
     return (
       <form
         onSubmit={handleSubmit(this.submitCallback)}
         className={classes.root}
       >
         <Paper className={classes.paper}>
-          <ChatList />
+          <ChatList user={user} />
           <Paper className={classes.typeArea}>
-            <Grid container spacing={12}>
+            <Grid container spacing={16}>
               <Grid container item xs={12}>
                 <Field
                   className={classes.textInput}
@@ -62,8 +61,8 @@ class Chat extends Component {
                   component={TextFieldWrapper}
                 />
               </Grid>
-              <Grid container item xs={12} justify={'flex-end'}>
-                <Grid container item xs={3} justify={'flex-end'}>
+              <Grid container spacing={16} item xs={12} justify={'flex-end'}>
+                <Grid container spacing={16} item xs={3} justify={'flex-end'}>
                   <Button
                     className={classes.submitButton}
                     variant="extendedFab"
@@ -87,6 +86,8 @@ const Form = reduxForm({
   form: 'chat',
 })(withStyles(styles)(Chat));
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  user: getUser(state),
+});
 
 export default connect(mapStateToProps)(Form);
