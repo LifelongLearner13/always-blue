@@ -100,7 +100,7 @@ io.on('connection', socket => {
     console.log(userMsg);
     // send data to chatbot class
     let msg = bot.getMessage(userMsg);
-    console.log(msg);
+    console.log([msg]);
     socket.emit('bot msg', msg);
   });
 });

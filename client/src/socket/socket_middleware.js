@@ -7,8 +7,12 @@ export default function socketMiddleware() {
 
   socket.on('bot msg', botData => {
     console.log(botData);
-    store.dispatch({type: GOT_CHAT_MSG, payload: {msg: botData[0], lang: 'english'}});
-    store.dispatch({type: GOT_CHAT_MSG, payload: {msg: botData[1], lang: 'spanish'}});
+    if (botData) {
+      store.dispatch({type: GOT_CHAT_MSG, payload: {msg: botData[0]}});
+      if (botData.length > 1) {
+        store.dispatch({type: GOT_CHAT_MSG, payload: {msg: botData[1]}});
+      }
+    }
   });
 
   return ({ dispatch }) => next => action => {
