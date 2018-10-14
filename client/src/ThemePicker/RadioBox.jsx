@@ -16,6 +16,7 @@ import BoxWithCheck from './BoxWithCheck';
 const RadioBox = ({ value, label, color, ...rest }) => (
   <Radio
     value={value}
+    style={{ padding: 0 }}
     color={'default'}
     aria-label={label}
     disableRipple={true}
@@ -29,7 +30,7 @@ RadioBox.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   color: PropTypes.string,
-  rest: PropTypes.any
+  rest: PropTypes.any,
 };
 
 export default RadioBox;
