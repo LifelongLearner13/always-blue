@@ -1,6 +1,6 @@
-import io from 'socket.io-client';
 import { SENT_CHAT_MSG, GOT_CHAT_MSG } from '../redux/constants';
 import { store } from '../index';
+import io from 'socket.io-client';
 
 const socket = io();
 
@@ -15,7 +15,7 @@ socket.on('bot msg', botData => {
 });
 
 export default function socketMiddleware() {
-  return ({ dispatch }) => next => action => {
+    return ({ dispatch }) => next => action => {
     if (typeof action === 'function') {
       return next(action);
     }

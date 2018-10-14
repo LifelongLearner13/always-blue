@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import ChatList from './ChatList';
 import TextFieldWrapper from '../common/TextFieldWrapper';
 import { getUser } from '../redux/stateSelectors';
+import { SENT_CHAT_MSG, GOT_CHAT_MSG } from '../redux/constants';
 
 const styles = theme => ({
   root: {
@@ -38,13 +39,18 @@ const styles = theme => ({
 class Chat extends Component {
   submitCallback = formData => {
     const { dispatch } = this.props;
-    dispatch({
-      event: true,
-      handle: 'newMsg',
-      payload: formData,
-    });
-    formData.message = '';
+    if (formData.message.toLowerCase().indexOf('yes') > -1) {
+      dispatch({ type: GOT_CHAT_MSG, payload: { msg: window.origin + '/map?language=english&category=automotive' } });
+    } else {
+      dispatch({
+        event: true,
+        handle: 'newMsg',
+        payload: formData,
+      });
+      formData.message = '';
+    }
   };
+  
   
   render() {
     const { classes, user, handleSubmit } = this.props;
