@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import L from 'leaflet';
+import queryString from 'query-string';
 
 const styles = theme => ({
   map: {
@@ -17,11 +18,21 @@ class Gh7map extends Component {
     super(props);
     this.state = {
       language: 'Espanol',
-      category: 'employment opportunities',
+      category: null,
     };
-
     // This binding is necessary to make `this` work in the callback
     this.updatemap = this.updatemap.bind(this);
+    this.parseString = this.parseString.bind(this);
+  }
+
+  parseString() {
+    const parsed = queryString.parse(this.props.location);
+    const language = parsed['language'];
+    const category = parsed['category'];
+    this.setState({
+      language,
+      category,
+    });
   }
 
   componentDidMount() {
@@ -42,7 +53,6 @@ class Gh7map extends Component {
           'pk.eyJ1Ijoia2FybGJlY2siLCJhIjoiY2puNnNtYXM2MHZjejNxbnZ3MmljYThsdiJ9.021TPbDGn37D-QxKP1INWA',
       }
     ).addTo(this.map);
-
     this.updatemap();
   }
 
@@ -117,37 +127,17 @@ class Gh7map extends Component {
       ],
     ];
 
-    var selectedLanguage = this.state.language;
-
-    function removeElement(name) {
-      var element = document.getElementById(name);
-      console.log('removing element for : ' + name);
-      element.parentElement.removeChild(element);
-      var chk = document.getElementById(name);
-      console.log('element still exists? : ' + chk);
-    }
-
-    var overlays = [];
-    console.log('cleared overlays');
-
+    const selectedLanguage = this.state.language;
     facilities.forEach(facility => {
-      var name = facility[0];
-      var color = facility[1];
-      var longitude = facility[2];
-      var latitude = facility[3];
-      var language = facility[4];
-      var category = facility[5];
-
-      var skipElement = false;
-
-      var element;
-
-      if (selectedLanguage === language) {
-        console.log('turning on feature :' + name);
-
-        var label = name + ' - ' + category;
-
-        var geojsonFeature = {
+      if (selectedLanguage === facility[4]) {
+        var name = facility[0];
+        var color = facility[1];
+        var longitude = facility[2];
+        var latitude = facility[3];
+        var language = facility[4];
+        var category = facility[5];
+        var label = `${name} - ${category}`;
+        const geojsonFeature = {
           type: 'Feature',
           properties: {
             name: name,
@@ -168,15 +158,13 @@ class Gh7map extends Component {
         console.log(geojsonFeature);
       }
     });
-
-    console.log('added map layers');
   }
 
-  handleLanguage = (event, language) => {
-    this.setState({ language });
+  // handleLanguage = (event, language) => {
+  //   this.setState({ language });
 
-    this.updatemap();
-  };
+  //   this.updatemap();
+  // };
 
   render() {
     const { language } = this.state;
