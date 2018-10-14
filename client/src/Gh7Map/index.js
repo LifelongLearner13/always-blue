@@ -8,7 +8,7 @@ class Gh7map extends Component {
     super(props);
     this.state = {
       language: 'Espanol',
-      category: 'employment',
+      category: 'employment opportunities',
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -19,6 +19,10 @@ class Gh7map extends Component {
     this.refs.buttonsLabel.innerHTML = 'Select a language ';
 
     this.map = L.map('map').setView([38.637584, -90.204644], 12);
+	
+    this.facilitiesLayer = L.geoJSON().addTo(this.map);
+	
+	this.markerGroup = L.layerGroup().addTo(this.map);
 	
     L.tileLayer(
       'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
@@ -43,16 +47,26 @@ class Gh7map extends Component {
   updatemap() {
     console.log('loading/reloading map features');
 
+	console.log(this.map);
+	// clear map features 	
+	
+	this.facilitiesLayer.remove();
+	this.facilitiesLayer = L.geoJSON().addTo(this.map);
+	
+	this.markerGroup.remove();
+	this.markerGroup = L.layerGroup().addTo(this.map);
+	
     // test data
     //
     // fields in each entry = [name, icon color, lon, lat, language, category]
 
 		var facilities = [
-			['Labor Finders St. Louis', 'yellow', -90.38226842089841, 38.48491310000001,'Espanol', 'employment'],
-			['Bosnian Chamber of Commerce', 'red', -90.27061534964223, 38.58051057952078,'Bosnian', 'employment'],
-			['PeopleReady', 'green', -90.23804032089845, 38.619800899999994, 'Chinese', 'employment'],        
-			['Catholic Immigration Law Project', 'red', -90.19969804964047, 38.628453379512926, 'Espanol', 'legal'],
-			['Hispanic Chamber of Commerce', 'yellow', -90.24637814964184, 38.591820779518876, 'Espanol', 'employment']         
+			['Labor Finders St. Louis', 'yellow', -90.38226842089841, 38.48491310000001,'Espanol', 'employment opportunities'],
+			['Bosnian Chamber of Commerce', 'red', -90.27061534964223, 38.58051057952078,'Bosnian', 'employment opportunities'],
+			['PeopleReady', 'green', -90.23804032089845, 38.619800899999994, 'Espanol', 'employment opportunities'],        
+			['Catholic Immigration Law Project', 'red', -90.19969804964047, 38.628453379512926, 'Espanol', 'legal help'],
+			['Hispanic Chamber of Commerce', 'yellow', -90.24637814964184, 38.591820779518876, 'Espanol', 'employment opportunities'] ,
+			['International Institute', 'yellow', -90.2469367302246, 38.6029476, 'Bosnian', 'legal help']			
 		];
 
     var selectedLanguage = this.state.language;
@@ -83,7 +97,7 @@ class Gh7map extends Component {
       if (selectedLanguage === language) {
         console.log('turning on feature :' + name);
 
-        var label = 'name = ' + name + ', category=' + category;
+        var label = name + ' - ' + category;
 
         var geojsonFeature = {
           type: 'Feature',
@@ -97,23 +111,14 @@ class Gh7map extends Component {
             coordinates: [longitude, latitude],
           },
         };
-
-        L.geoJSON(geojsonFeature)
-          .addTo(this.map)
-          .bindPopup(function(layer) {
+				  
+		this.facilitiesLayer.addData(geojsonFeature).bindPopup(function(layer) {
             return layer.feature.properties.label;
-          })
-          .addTo(this.map);
-
+        });  
+		  
         console.log('created feature:');
         console.log(geojsonFeature);
-      } else {
-        // remove feature feature if it exists
-      //  element = document.getElementById(name);
-      //  if (element != null) {
-      //    removeElement(name);
-      //  }
-      }
+      } 
 
     });
 
