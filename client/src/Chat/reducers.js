@@ -8,12 +8,12 @@ export default (state = initialState.chat, action) => {
       console.log(action.payload);
       return {
         ...state,
-        messageList: [...state.messageList, {message: action.payload.message, type: 'user'}]
+        messageList: [...state.messageList, {message: action.payload.message, type: 'user', lang: 'unk'}]
       };
     case GOT_CHAT_MSG: 
       return {
         ...state,
-        messageList: [...state.messageList, {message: action.payload, type: 'bot'}]
+        messageList: [...state.messageList, {message: action.payload.msg, type: 'bot', lang: action.payload.lang}]
       };
     default:
       return state;
