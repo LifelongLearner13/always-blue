@@ -55,12 +55,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Setup authentication
-mountAuth(passport);
-
-// Setup API routes
-mountAPIRoutes(app, passport);
-
 // Must come right before the error handlers
 mount404(app);
 
@@ -87,8 +81,6 @@ const runServer = callback => {
   });
 };
 
-// If file is called directly, then run server.
-// Allows for testing the code.
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
@@ -105,9 +97,7 @@ io.on('connection', socket => {
   });
 });
 
-
-
-http.listen(4000, function(){
+http.listen(4000, function() {
   console.log('listening on *:4000');
 });
 
