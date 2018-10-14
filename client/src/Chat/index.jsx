@@ -38,8 +38,18 @@ const styles = theme => ({
 
 class Chat extends Component {
   submitCallback = formData => {
+    console.log('this here');
+    const { dispatch } = this.props;
+    dispatch({
+      event: true,
+      handle: 'newMsg',
+      payload: formData,
+    });
+    formData.message = '';
+
     console.log('form submitted: ', formData);
   };
+  
   render() {
     const { classes, handleSubmit } = this.props;
     return (
@@ -66,6 +76,7 @@ class Chat extends Component {
                 <Grid container item xs={3} justify={'flex-end'}>
                   <Button
                     className={classes.submitButton}
+                    onClick={handleSubmit(this.submitCallback)}
                     variant="extendedFab"
                     color="primary"
                     aria-label="Add"

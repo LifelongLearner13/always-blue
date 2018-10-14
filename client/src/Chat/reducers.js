@@ -4,14 +4,16 @@ import initialState from '../redux/initialState';
 export default (state = initialState.chat, action) => {
   switch (action.type) {
     case SENT_CHAT_MSG:
+      console.log(state);
+      console.log(action.payload);
       return {
         ...state,
-        userMsg: action.payload
+        messageList: [...state.messageList, {message: action.payload.message, type: 'user'}]
       };
     case GOT_CHAT_MSG: 
       return {
         ...state,
-        botMsg: action.payload
+        messageList: [...state.messageList, {message: action.payload, type: 'bot'}]
       };
     default:
       return state;

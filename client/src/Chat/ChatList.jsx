@@ -99,18 +99,6 @@ class ChatList extends Component {
           </li>
         ))}
       </ol>
-      // <button
-      //   type="button"
-      //   onClick={() =>
-      //     dispatch({
-      //       event: true,
-      //       handle: 'newMsg',
-      //       payload: 'some chat msg to send the server',
-      //     })
-      //   }
-      // >
-      //   Click Me!
-      // </button>
     );
   }
 }
