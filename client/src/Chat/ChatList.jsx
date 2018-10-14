@@ -8,25 +8,6 @@ import FaceIcon from '@material-ui/icons/FaceOutlined';
 import blue from '@material-ui/core/colors/blue';
 import { connect } from 'react-redux';
 
-const data = [
-  {
-    type: 'bot',
-    time: '10:00 am',
-    message:
-      'hello jirtjiejlej jfoejfoejo3j jfojgoejgoejog jfojgoejgoej jeojeojgeo jfjwjfowj jfjjkj',
-  },
-  {
-    type: 'user',
-    time: '10:01 am',
-    message: 'hello',
-  },
-  {
-    type: 'bot',
-    time: '10:02 am',
-    message: 'hello',
-  },
-];
-
 const styles = theme => ({
   list: {
     listStyle: 'none',
@@ -116,7 +97,10 @@ class ChatList extends Component {
               )}
             </Avatar>
             <Paper className={classes.chatItem}>
-              <Typography color={'inherit'}>{el.message}</Typography>
+              <Typography color={'inherit'}>{
+                el.message.toLowerCase().indexOf('http') > -1 ? <a href={el.message} target='_blank'>{el.message}</a> : 
+              <span>{el.message}</span>
+            }</Typography>
             </Paper>
           </li>
         ))}
