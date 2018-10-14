@@ -113,7 +113,18 @@ class ChatList extends Component {
             ))}
           </ol>
         </Paper>
-        <button type="button" onClick={() => dispatch({event: true, handle: 'newMsg', payload: 'some chat msg to send the server'})}>Click Me!</button> 
+        <button
+          type="button"
+          onClick={() =>
+            dispatch({
+              event: true,
+              handle: 'newMsg',
+              payload: 'some chat msg to send the server',
+            })
+          }
+        >
+          Click Me!
+        </button>
       </div>
     );
   }
@@ -123,4 +134,4 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default withStyles(styles)(connect(mapStateToProps)(ChatList));
+export default connect(mapStateToProps)(withStyles(styles)(ChatList));

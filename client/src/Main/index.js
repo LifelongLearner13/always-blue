@@ -7,7 +7,8 @@ import Profile from '../Profile';
 import Loader from '../common/Loader';
 import { loginProcessing } from '../Auth/actions';
 import { isUserAuthenticated } from '../redux/stateSelectors';
-import ChatList from '../Chat/ChatList';
+import Chat from '../Chat';
+import Gh7Map from '../Gh7Map';
 
 class Main extends Component {
   constructor(props) {
@@ -26,7 +27,8 @@ class Main extends Component {
         <main style={{ display: 'flex' }}>
           <Switch>
             <PrivateRoute path={'/profile'} component={Profile} />
-            <PrivateRoute path={'/chat'} component={ChatList} />
+            <PrivateRoute path={'/chat'} component={Chat} />
+            <PrivateRoute path={'/map'} component={Gh7Map} />
             <Route
               path={'/auth'}
               render={props => {
