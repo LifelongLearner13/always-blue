@@ -156,6 +156,7 @@ class Gh7map extends Component {
 	
     var selectedLanguage = this.state.language;
 
+	/*
     function removeElement(name) {
       var element = document.getElementById(name);
       console.log('removing element for : ' + name);
@@ -163,18 +164,26 @@ class Gh7map extends Component {
       var chk = document.getElementById(name);
       console.log('element still exists? : ' + chk);
     }
+	*/
 
     var overlays = [];
     console.log('cleared overlays');
 
     const selectedLanguage = this.state.language;
     employers.forEach(employer => {
-      if (selectedLanguage === employer[4]) {
         var nameEnglish = employer[0];
         var nameEspanol = employer[1];
         var longitude = employer[2];
         var latitude = employer[3];
         var category = employer[4];
+		
+		var displayName;
+		if (selectedLanguage === 'Espanol') {
+			displayName = nameEspanol; 
+		} else {
+			displayName = nameEnglish;
+        }			
+			
         var label = `${nameEspanol} - ${category}`;
         const geojsonFeature = {
           type: 'Feature',
@@ -193,7 +202,6 @@ class Gh7map extends Component {
         this.employersLayer.addData(geojsonFeature).bindPopup(function(layer) {
           return layer.feature.properties.label;
         });
-	  }	
     });
  }
 
