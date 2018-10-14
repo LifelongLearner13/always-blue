@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import L from 'leaflet';
+import queryString from 'query-string';
 
 const styles = theme => ({
   map: {
@@ -17,11 +18,21 @@ class Gh7map extends Component {
     super(props);
     this.state = {
       language: 'Espanol',
-      category: 'employment opportunities',
+      category: null,
     };
-
     // This binding is necessary to make `this` work in the callback
     this.updatemap = this.updatemap.bind(this);
+    this.parseString = this.parseString.bind(this);
+  }
+
+  parseString() {
+    const parsed = queryString.parse(this.props.location);
+    const language = parsed['language'];
+    const category = parsed['category'];
+    this.setState({
+      language,
+      category,
+    });
   }
 
   componentDidMount() {
@@ -42,7 +53,6 @@ class Gh7map extends Component {
           'pk.eyJ1Ijoia2FybGJlY2siLCJhIjoiY2puNnNtYXM2MHZjejNxbnZ3MmljYThsdiJ9.021TPbDGn37D-QxKP1INWA',
       }
     ).addTo(this.map);
-
     this.updatemap();
   }
 
@@ -157,23 +167,16 @@ class Gh7map extends Component {
     var overlays = [];
     console.log('cleared overlays');
 
+    const selectedLanguage = this.state.language;
     employers.forEach(employer => {
-      var nameEnglish = employer[0];
-      var nameEspanol = employer[1];
-      var longitude = employer[2];
-      var latitude = employer[3];
-      var category = employer[4];
-
-      var skipElement = false;
-
-      var element;
-
-     // if (selectedLanguage === language) {
-        console.log('turning on feature :' + nameEspanol);
-
-        var label = nameEspanol + ' - ' + category;
-
-        var geojsonFeature = {
+      if (selectedLanguage === employer[4]) {
+        var nameEnglish = employer[0];
+        var nameEspanol = employer[1];
+        var longitude = employer[2];
+        var latitude = employer[3];
+        var category = employer[4];
+        var label = `${nameEspanol} - ${category}`;
+        const geojsonFeature = {
           type: 'Feature',
           properties: {
             nameEnglish: nameEnglish,
@@ -184,26 +187,15 @@ class Gh7map extends Component {
           geometry: {
             type: 'Point',
             coordinates: [longitude, latitude],
-          },
+          }
         };
 
         this.employersLayer.addData(geojsonFeature).bindPopup(function(layer) {
           return layer.feature.properties.label;
         });
-
-        console.log('created feature:');
-        console.log(geojsonFeature);
-    // }
+	  }	
     });
-
-    console.log('added map layers');
-  }
-
-  handleLanguage = (event, language) => {
-    this.setState({ language });
-
-    this.updatemap();
-  };
+ }
 
   render() {
     const { language } = this.state;

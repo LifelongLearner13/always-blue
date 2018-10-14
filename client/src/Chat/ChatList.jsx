@@ -97,7 +97,10 @@ class ChatList extends Component {
               )}
             </Avatar>
             <Paper className={classes.chatItem}>
-              <Typography color={'inherit'}>{el.message}</Typography>
+              <Typography color={'inherit'}>{
+                el.message.toLowerCase().indexOf('http') > -1 ? <a href={el.message} target='_blank'>{el.message}</a> : 
+              <span>{el.message}</span>
+            }</Typography>
             </Paper>
           </li>
         ))}
