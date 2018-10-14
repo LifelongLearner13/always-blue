@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 import profile from '../Profile/reducers';
+import chat from '../Chat/reducers';
 import login from '../Auth/reducers';
 import messages from '../MessageList/reducers';
 import theme from '../ThemePicker/reducers';
@@ -10,6 +11,7 @@ import theme from '../ThemePicker/reducers';
  */
 export default combineReducers({
   profile,
+  chat,
   login,
   messages,
   theme,

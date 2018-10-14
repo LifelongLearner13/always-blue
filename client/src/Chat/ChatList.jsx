@@ -3,39 +3,30 @@ import ClassNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { connect } from 'react-redux';
+import Avatar from '@material-ui/core/Avatar';
+import FaceIcon from '@material-ui/icons/FaceOutlined';
+import blue from '@material-ui/core/colors/blue';
 
 const data = [
   {
-    name: 'foo',
+    type: 'bot',
     time: '10:00 am',
     message:
       'hello jirtjiejlej jfoejfoejo3j jfojgoejgoejog jfojgoejgoej jeojeojgeo jfjwjfowj jfjjkj',
   },
   {
-    name: 'bar',
+    type: 'user',
     time: '10:01 am',
     message: 'hello',
   },
   {
-    name: 'foo',
+    type: 'bot',
     time: '10:02 am',
     message: 'hello',
   },
 ];
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    flexGrow: 1,
-    padding: theme.spacing.unit * 2,
-  },
-  paper: {
-    width: '80%',
-  },
   list: {
     listStyle: 'none',
     display: 'flex',
@@ -55,7 +46,14 @@ const styles = theme => ({
   item: {
     margin: theme.spacing.unit * 2,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '&.right': {
+      flexDirection: 'row-reverse',
+    },
+  },
+  botAvatar: {
+    backgroundColor: blue[400],
   },
   chatItem: {
     margin: theme.spacing.unit * 2,
@@ -65,62 +63,65 @@ const styles = theme => ({
     '&::before': {
       content: '" "',
       position: 'absolute',
-      top: -10,
       width: 0,
       height: 0,
-      borderLeft: '10px solid transparent',
-      borderRight: '10px solid transparent',
+      bottom: 5,
+      borderTop: '10px solid transparent',
+      borderBottom: '10px solid transparent',
     },
     '.left &': {
       background: theme.palette.secondary.light,
+      color: theme.palette.getContrastText(theme.palette.secondary.light),
     },
     '.right &': {
       background: theme.palette.primary.light,
+      color: theme.palette.getContrastText(theme.palette.primary.light),
     },
     '.left &::before': {
-      left: 5,
-      borderBottom: `10px solid ${theme.palette.secondary.light}`,
+      left: -10,
+      borderRight: `10px solid ${theme.palette.secondary.light}`,
     },
     '.right &::before': {
-      right: 5,
-      borderBottom: `10px solid ${theme.palette.primary.light}`,
+      right: -10,
+      borderLeft: `10px solid ${theme.palette.primary.light}`,
     },
   },
 });
 
 class ChatList extends Component {
   render() {
-    const { classes, dispatch } = this.props;
+    const { classes, user } = this.props;
+    const { picture } = user;
     return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
-          <ol className={classes.list}>
-            {data.map((el, idx) => (
-              <li
-                key={el.name}
-                className={ClassNames(
-                  classes.item,
-                  idx % 2 === 0 ? 'left' : 'right'
-                )}
-              >
-                <Typography>
-                  {el.name} - {el.time}
-                </Typography>
-                <Paper className={classes.chatItem}>
-                  <Typography>{el.message}</Typography>
-                </Paper>
-              </li>
-            ))}
-          </ol>
-        </Paper>
-        <button type="button" onClick={() => dispatch({event: true, handle: 'newMsg', payload: 'some chat msg to send the server'})}>Click Me!</button> 
-      </div>
+      <ol className={classes.list}>
+        {data.map((el, idx) => (
+          <li
+            key={idx}
+            className={ClassNames(
+              classes.item,
+              el.type === 'bot' ? 'left' : 'right'
+            )}
+          >
+            <Avatar
+              className={el.type === 'bot' ? classes.botAvatar : null}
+              src={el.type === 'user' ? picture || null : null}
+            >
+              {el.type === 'user' ? (
+                picture ? null : (
+                  <FaceIcon />
+                )
+              ) : (
+                <FaceIcon />
+              )}
+            </Avatar>
+            <Paper className={classes.chatItem}>
+              <Typography color={'inherit'}>{el.message}</Typography>
+            </Paper>
+          </li>
+        ))}
+      </ol>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
-export default withStyles(styles)(connect(mapStateToProps)(ChatList));
+export default withStyles(styles)(ChatList);

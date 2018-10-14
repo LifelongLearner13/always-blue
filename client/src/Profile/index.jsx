@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -39,7 +39,7 @@ class Profile extends Component {
     let { name, picture } = profile.user;
 
     return (
-      <Fragment>
+      <Grid container spacing={24}>
         <Grid item xs={12} component={'section'}>
           <Avatar className={classes.avatar} src={picture || null}>
             {picture ? null : <FaceIcon className={classes.avatarIcon} />}
@@ -77,7 +77,7 @@ class Profile extends Component {
           </Paper>
         </Grid>
         <ThemePicker />
-      </Fragment>
+      </Grid>
     );
   }
 }

@@ -17,7 +17,6 @@ export default {
     error: 'Red',
   },
   chat: {
-    userMsg: [],
-    botMsg: []
+    messageList: []
   }
 };

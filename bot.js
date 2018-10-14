@@ -1,4 +1,5 @@
 require('dotenv').config();
+const response = require('./bot_response');
 const rp = require('request-promise');
 const TOKEN = process.env.WAT_API_KEY;
 const APPID = process.env.WAT_APP_ID;
@@ -16,6 +17,22 @@ const createDate = () => {
     month = `0${month}`;
   }
   return `${year}${month}${day}`;
+};
+
+const getGreeting = () => {
+  const spanish = response['greeting_spanish'];
+  const english = response['greeting'];
+  const spaidx = Math.floor(Math.random() * spanish.length);
+  const engidx = Math.floor(Math.random() * english.length);
+  return [english[engidx], spanish[spaidx]];
+};
+
+// process all of the bot messages here
+const processMessage = message => {
+  let entity = getMessage(message);
+  let arr = response[entity];
+  let idx = Math.floor(Math.random() * arr.length);
+  return arr[idx];
 };
 
 const getMessage = message => {
@@ -41,7 +58,7 @@ const getMessage = message => {
       return extractEntity(data);
     })
     .catch(err => {
-      return null;
+      return 'none';
     });
 };
 
@@ -84,6 +101,8 @@ const extractEntity = object => {
 
 module.exports = {
   TOKEN,
+  processMessage,
+  getGreeting,
   extractEntity,
   getMessage,
   getEntity,
