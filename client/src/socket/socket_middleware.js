@@ -3,11 +3,7 @@ import { SENT_CHAT_MSG, GOT_CHAT_MSG } from '../redux/constants';
 import { store } from '../index';
 
 export default function socketMiddleware() {
-  const socket = io.connect(
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:5000'
-      : window.location
-  );
+  const socket = io.connect();
 
   socket.on('bot msg', botData => {
     console.log(botData);
