@@ -15,7 +15,7 @@ import materialUIColors from './materialUIColors';
 import {
   getThemePrimary,
   getThemeSecondary,
-  isThemeRequesting
+  isThemeRequesting,
 } from '../redux/stateSelectors';
 import { themeRequest } from './actions';
 
@@ -25,38 +25,38 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     width: '80%',
-    margin: '0 auto'
+    margin: '0 auto',
   },
   sectionTitle: {
-    marginBottom: theme.spacing.unit * 2
+    marginBottom: theme.spacing.unit * 2,
   },
   center: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   colorWrapper: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     margin: `${theme.spacing.unit * 2}px auto`,
-    width: 200
+    width: 200,
   },
   submitWrapper: {
     margin: theme.spacing.unit,
-    position: 'relative'
+    position: 'relative',
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
     '&:disabled': {
-      backgroundColor: theme.palette.primary[200]
-    }
+      backgroundColor: theme.palette.primary[200],
+    },
   },
   buttonProgress: {
     color: theme.palette.secondary.dark,
     position: 'absolute',
     top: '50%',
     left: '50%',
-    marginLeft: -12
-  }
+    marginLeft: -12,
+  },
 });
 
 /**
@@ -71,7 +71,7 @@ class ThemePicker extends Component {
   submitCallback = formData => {
     this.props.themeRequest({
       primary: formData.primary,
-      secondary: formData.secondary
+      secondary: formData.secondary,
     });
   };
 
@@ -187,25 +187,25 @@ class ThemePicker extends Component {
 ThemePicker.propTypes = {
   classes: PropTypes.object,
   handleSubmit: PropTypes.func,
-  isRequesting: PropTypes.bool
+  isRequesting: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
   initialValues: {
     // Used to initialize Redux Form with values from Redux store
     primary: getThemePrimary(state),
-    secondary: getThemeSecondary(state)
+    secondary: getThemeSecondary(state),
   },
-  isRequesting: isThemeRequesting(state)
+  isRequesting: isThemeRequesting(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  themeRequest: response => dispatch(themeRequest(response))
+  themeRequest: response => dispatch(themeRequest(response)),
 });
 
 const Form = reduxForm({
   form: 'themePicker',
-  enableReinitialize: true // Will update the form, if the values in `initialValues` change
+  enableReinitialize: true, // Will update the form, if the values in `initialValues` change
 })(withStyles(styles)(ThemePicker));
 
 export default connect(
