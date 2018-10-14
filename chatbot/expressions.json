@@ -1,247 +1,864 @@
 {
-  "data" : [
+  "data": [
     {
-      "text" : "Can I speak to a lawyer",
-      "entities" : [
+      "text": "Abogado"
+    },
+    {
+      "text": "Buscando proveer para mis seres queridos",
+      "entities": [
         {
-          "entity" : "lawyer",
-          "value" : "\"lawyer\""
+          "entity": "job",
+          "value": "\"job_spanish\""
         }
       ]
     },
     {
-      "text" : "Doctor",
-      "entities" : [
+      "text": "Can I speak to a lawyer",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "lawyer",
+          "value": "\"lawyer\""
         }
       ]
     },
     {
-      "text" : "Hospital",
-      "entities" : [
+      "text": "Doctor",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "child",
+          "value": "\"medical\""
         }
       ]
     },
     {
-      "text" : "I need a doctor",
-      "entities" : [
+      "text": "ESL"
+    },
+    {
+      "text": "Estoy buscando trabajo",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "job",
+          "value": "\"job_spanish\""
         }
       ]
     },
     {
-      "text" : "I need help finding a job",
-      "entities" : [
+      "text": "Estoy buscando un abogado"
+    },
+    {
+      "text": "Hospital",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "child",
+          "value": "\"medical\""
         }
       ]
     },
     {
-      "text" : "I need help finding a lawyer",
-      "entities" : [
+      "text": "I need a doctor",
+      "entities": [
         {
-          "entity" : "lawyer",
-          "value" : "\"lawyer\""
+          "entity": "child",
+          "value": "\"medical\""
         }
       ]
     },
     {
-      "text" : "I need legal help",
-      "entities" : [
+      "text": "I need help finding a job",
+      "entities": [
         {
-          "entity" : "lawyer",
-          "value" : "\"lawyer\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "I need money",
-      "entities" : [
+      "text": "I need help finding a lawyer",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "lawyer",
+          "value": "\"lawyer\""
         }
       ]
     },
     {
-      "text" : "I need to find work",
-      "entities" : [
+      "text": "I need help learning english"
+    },
+    {
+      "text": "I need legal help",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "lawyer",
+          "value": "\"lawyer\""
         }
       ]
     },
     {
-      "text" : "I need to make money",
-      "entities" : [
+      "text": "I need money",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "I need to make money for my family",
-      "entities" : [
+      "text": "I need to find work",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "I need to talk to a lawyer",
-      "entities" : [
+      "text": "I need to make money",
+      "entities": [
         {
-          "entity" : "lawyer",
-          "value" : "\"lawyer\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "I'm looking for a hospital",
-      "entities" : [
+      "text": "I need to make money for my family",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "I'm looking for a job",
-      "entities" : [
+      "text": "I need to talk to a lawyer",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "lawyer",
+          "value": "\"lawyer\""
         }
       ]
     },
     {
-      "text" : "I'm looking for a lawyer",
-      "entities" : [
+      "text": "I want to earn english as a second language"
+    },
+    {
+      "text": "I want to find a language teacher"
+    },
+    {
+      "text": "I want to learn to speak english"
+    },
+    {
+      "text": "I'm good"
+    },
+    {
+      "text": "I'm looking for a hospital",
+      "entities": [
         {
-          "entity" : "lawyer",
-          "value" : "\"lawyer\""
+          "entity": "child",
+          "value": "\"medical\""
         }
       ]
     },
     {
-      "text" : "I'm looking for work",
-      "entities" : [
+      "text": "I'm looking for a job",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "Job",
-      "entities" : [
+      "text": "I'm looking for a lawyer",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "lawyer",
+          "value": "\"lawyer\""
         }
       ]
     },
     {
-      "text" : "Lawyer",
-      "entities" : [
+      "text": "I'm looking for esl classes"
+    },
+    {
+      "text": "I'm looking for work",
+      "entities": [
         {
-          "entity" : "lawyer",
-          "value" : "\"lawyer\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "Legal",
-      "entities" : [
+      "text": "Job",
+      "entities": [
         {
-          "entity" : "lawyer",
-          "value" : "\"lawyer\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "Looking to provide for my loved ones",
-      "entities" : [
+      "text": "Lawyer",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "lawyer",
+          "value": "\"lawyer\""
         }
       ]
     },
     {
-      "text" : "Medical Professional",
-      "entities" : [
+      "text": "Legal",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "lawyer",
+          "value": "\"lawyer\""
         }
       ]
     },
     {
-      "text" : "My child is sick",
-      "entities" : [
+      "text": "Looking for a immagration lawyer",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "immagration",
+          "value": "\"lawyer_immagration\""
+        },
+        {
+          "entity": "lawyer",
+          "value": "\"lawyer\""
         }
       ]
     },
     {
-      "text" : "My child needs help",
-      "entities" : [
+      "text": "Looking to provide for my loved ones",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "job",
+          "value": "\"job\""
         }
       ]
     },
     {
-      "text" : "My child needs medical attention",
-      "entities" : [
+      "text": "Medical Professional",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "child",
+          "value": "\"medical\""
         }
       ]
     },
     {
-      "text" : "Sick",
-      "entities" : [
+      "text": "My child is sick",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "child",
+          "value": "\"medical\""
         }
       ]
     },
     {
-      "text" : "Sickness",
-      "entities" : [
+      "text": "My child needs help",
+      "entities": [
         {
-          "entity" : "child",
-          "value" : "\"medical\""
+          "entity": "child",
+          "value": "\"medical\""
         }
       ]
     },
     {
-      "text" : "Work",
-      "entities" : [
+      "text": "My child needs medical attention",
+      "entities": [
         {
-          "entity" : "job",
-          "value" : "\"job\""
+          "entity": "child",
+          "value": "\"medical\""
         }
       ]
+    },
+    {
+      "text": "Necesito ayuda legal"
+    },
+    {
+      "text": "Necesito ayuda para encontrar un abogado"
+    },
+    {
+      "text": "Necesito ayuda para encontrar un trabajo",
+      "entities": [
+        {
+          "entity": "job",
+          "value": "\"job_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "Necesito encontrar trabajo",
+      "entities": [
+        {
+          "entity": "job",
+          "value": "\"job_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "Necesito ganar dinero",
+      "entities": [
+        {
+          "entity": "job",
+          "value": "\"job_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "Necesito ganar dinero para mi familia",
+      "entities": [
+        {
+          "entity": "job",
+          "value": "\"job_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "Necesito hablar con un abogado"
+    },
+    {
+      "text": "No I don't need anything else"
+    },
+    {
+      "text": "No Thank you"
+    },
+    {
+      "text": "No, Thank you"
+    },
+    {
+      "text": "Puedo hablar con un abogado"
+    },
+    {
+      "text": "Sick",
+      "entities": [
+        {
+          "entity": "child",
+          "value": "\"medical\""
+        }
+      ]
+    },
+    {
+      "text": "Sickness",
+      "entities": [
+        {
+          "entity": "child",
+          "value": "\"medical\""
+        }
+      ]
+    },
+    {
+      "text": "Work",
+      "entities": [
+        {
+          "entity": "job",
+          "value": "\"job\""
+        }
+      ]
+    },
+    {
+      "text": "Yes"
+    },
+    {
+      "text": "Yes, Please"
+    },
+    {
+      "text": "Yes, please"
+    },
+    {
+      "text": "affirmative",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"yes\""
+        }
+      ]
+    },
+    {
+      "text": "afirmativo",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"yes_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "agricultue",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture\""
+        }
+      ]
+    },
+    {
+      "text": "agricultura",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "anything",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"labor\""
+        }
+      ]
+    },
+    {
+      "text": "automotive",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"automotive\""
+        }
+      ]
+    },
+    {
+      "text": "automotor",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"automotive_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "building houses",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"construction\""
+        }
+      ]
+    },
+    {
+      "text": "car mechanic",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"automotive\""
+        }
+      ]
+    },
+    {
+      "text": "construcción",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"construction_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "construcción de viviendas",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"construction_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "construction",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"construction\""
+        }
+      ]
+    },
+    {
+      "text": "construction worker",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"construction\""
+        }
+      ]
+    },
+    {
+      "text": "construyendo casas",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"construction_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "correct",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"yes\""
+        }
+      ]
+    },
+    {
+      "text": "correcto",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"yes_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "cualquier cosa",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"labor_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "estoy buscando un trabajo",
+      "entities": [
+        {
+          "entity": "job",
+          "value": "\"job_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "farming",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture\""
+        }
+      ]
+    },
+    {
+      "text": "fixing cars",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"automotive\""
+        }
+      ]
+    },
+    {
+      "text": "general labor",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"labor\""
+        }
+      ]
+    },
+    {
+      "text": "gestión interna",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"labor_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "home building",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"construction\""
+        }
+      ]
+    },
+    {
+      "text": "house cleaning",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"maid\""
+        }
+      ]
+    },
+    {
+      "text": "house keeping",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"maid\""
+        }
+      ]
+    },
+    {
+      "text": "i want to find an immagration lawyer",
+      "entities": [
+        {
+          "entity": "immagration",
+          "value": "\"lawyer_immagration\""
+        }
+      ]
+    },
+    {
+      "text": "i'm good"
+    },
+    {
+      "text": "immagration lawyer",
+      "entities": [
+        {
+          "entity": "immagration",
+          "value": "\"lawyer_immagration\""
+        },
+        {
+          "entity": "lawyer",
+          "value": "\"lawyer\""
+        }
+      ]
+    },
+    {
+      "text": "laborer",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"labor\""
+        }
+      ]
+    },
+    {
+      "text": "limpieza de la casa",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"maid_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "maid",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"maid\""
+        }
+      ]
+    },
+    {
+      "text": "mechanic",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"automotive\""
+        }
+      ]
+    },
+    {
+      "text": "mecánico",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"automotive_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "mucama",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"maid_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "nah",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"no\""
+        }
+      ]
+    },
+    {
+      "text": "necesito dinero",
+      "entities": [
+        {
+          "entity": "job",
+          "value": "\"job_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "negativo",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"no_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "no",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"no\""
+        }
+      ]
+    },
+    {
+      "text": "no thank you"
+    },
+    {
+      "text": "no, please"
+    },
+    {
+      "text": "nop",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"no_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "nope",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"no\""
+        }
+      ]
+    },
+    {
+      "text": "obrero",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"labor_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "ok can you he"
+    },
+    {
+      "text": "pick fruit",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture\""
+        }
+      ]
+    },
+    {
+      "text": "pick vegetables",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture\""
+        }
+      ]
+    },
+    {
+      "text": "recoger fruta",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "recoger verduras",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "reparando Automobiles",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"automotive_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "sí",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"yes_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "that's right",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"yes\""
+        }
+      ]
+    },
+    {
+      "text": "trabajar en una granja",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "trabajo",
+      "entities": [
+        {
+          "entity": "job",
+          "value": "\"job_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "trabajo de dia",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"labor_spanish\""
+        }
+      ]
+    },
+    {
+      "text": "work on a farm",
+      "entities": [
+        {
+          "entity": "job_category",
+          "value": "\"agriculture\""
+        }
+      ]
+    },
+    {
+      "text": "yeah"
+    },
+    {
+      "text": "yep"
+    },
+    {
+      "text": "yes",
+      "entities": [
+        {
+          "entity": "confirmation",
+          "value": "\"yes\""
+        }
+      ]
+    },
+    {
+      "text": "yes, please"
     }
   ]
 }

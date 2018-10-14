@@ -1,0 +1,21 @@
+{
+  "data" : {
+    "lookups" : [
+      "trait"
+    ],
+    "name" : "child",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "child",
+    "values" : [
+      {
+        "value" : "medical",
+        "expressions" : [
+          "medical"
+        ]
+      }
+    ],
+    "doc" : "User-defined entity",
+    "builtin" : false
+  }
+}

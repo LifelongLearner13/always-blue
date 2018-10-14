@@ -1,0 +1,21 @@
+{
+  "data" : {
+    "lookups" : [
+      "trait"
+    ],
+    "name" : "lawyer",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "lawyer",
+    "values" : [
+      {
+        "value" : "lawyer",
+        "expressions" : [
+          "lawyer"
+        ]
+      }
+    ],
+    "doc" : "I need help finding a lawyer",
+    "builtin" : false
+  }
+}

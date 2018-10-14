@@ -82,8 +82,7 @@ const runServer = callback => {
   });
 };
 
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(runServer());
 
 io.on('connection', socket => {
   const greetingMsg = bot.getGreeting();
@@ -107,10 +106,6 @@ io.on('connection', socket => {
       socket.emit('bot msg', [msg]);
     });
   });
-});
-
-http.listen(4000, function() {
-  console.log('listening on *:4000');
 });
 
 exports.app = app;
