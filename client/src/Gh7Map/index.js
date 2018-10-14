@@ -27,7 +27,7 @@ class Gh7map extends Component {
   componentDidMount() {
     this.map = L.map('map').setView([38.637584, -90.204644], 12);
 
-    this.facilitiesLayer = L.geoJSON().addTo(this.map);
+    this.employersLayer = L.geoJSON().addTo(this.map);
 
     this.markerGroup = L.layerGroup().addTo(this.map);
 
@@ -56,67 +56,94 @@ class Gh7map extends Component {
     console.log(this.map);
     // clear map features
 
-    this.facilitiesLayer.remove();
-    this.facilitiesLayer = L.geoJSON().addTo(this.map);
+    this.employersLayer.remove();
+    this.employersLayer = L.geoJSON().addTo(this.map);
 
     this.markerGroup.remove();
     this.markerGroup = L.layerGroup().addTo(this.map);
 
     // test data
-    //
-    // fields in each entry = [name, icon color, lon, lat, language, category]
+    //                       
+    // fields in each entry = [English name, Spanish name, lon, lat, job category]
 
-    var facilities = [
-      [
+	var employers = [
+	[
         'Labor Finders St. Louis',
-        'yellow',
+        'Buscadores de Trabajo St. Louis',
         -90.38226842089841,
         38.48491310000001,
-        'Espanol',
-        'employment opportunities',
-      ],
-      [
+        'labor'
+    ],
+	[
         'Bosnian Chamber of Commerce',
-        'red',
+        'Bosnian Chamber of Commerce',
         -90.27061534964223,
         38.58051057952078,
-        'Bosnian',
-        'employment opportunities',
-      ],
-      [
+        'employment opportunities'
+    ],
+	[
         'PeopleReady',
-        'green',
+        'PeopleReady',
         -90.23804032089845,
         38.619800899999994,
-        'Espanol',
-        'employment opportunities',
-      ],
-      [
+        'labor'
+	],
+    [
         'Catholic Immigration Law Project',
-        'red',
+        'Catholic Immigration Law Project',
         -90.19969804964047,
         38.628453379512926,
-        'Espanol',
-        'legal help',
-      ],
-      [
+        'legal help'
+    ],
+	[
         'Hispanic Chamber of Commerce',
-        'yellow',
+        'Hispanic Chamber of Commerce',
         -90.24637814964184,
         38.591820779518876,
-        'Espanol',
-        'employment opportunities',
-      ],
-      [
+        'employment opportunities'
+    ],
+	[
         'International Institute',
-        'yellow',
+        'International Institute',
         -90.2469367302246,
         38.6029476,
-        'Bosnian',
-        'legal help',
-      ],
-    ];
-
+        'legal help'
+    ],
+	['Green Angel Cleaning Services', 
+		'Servicios de limpieza de Green Angel',
+	    -91.55174273954212,  
+		39.87594030588294, 
+		'maid'
+	],
+	['Green Angel Cleaning Services', 
+		'Servicios de limpieza de Green Angel',
+	    -91.55174273954212,  
+		39.87594030588294, 
+		'maid'
+	],
+	[
+		'St Louis Cleaning Team',
+		'Equipo de limpieza de San Luis',
+	    -91.55174273954212, 
+		 39.87594030588294, 
+		 'maid'
+	],
+	[
+		'Cleaning Concepts',
+		'Conceptos de limpieza',
+		-91.55174273954212, 
+		39.87594030588294, 
+		'maid'
+	],
+	[
+		'Better Life Maids',
+		'Mejores criadas de la vida',
+		-91.55174273954212,
+		39.87594030588294,
+		'maid'
+    ]
+	];
+	
     var selectedLanguage = this.state.language;
 
     function removeElement(name) {
@@ -130,27 +157,27 @@ class Gh7map extends Component {
     var overlays = [];
     console.log('cleared overlays');
 
-    facilities.forEach(facility => {
-      var name = facility[0];
-      var color = facility[1];
-      var longitude = facility[2];
-      var latitude = facility[3];
-      var language = facility[4];
-      var category = facility[5];
+    employers.forEach(employer => {
+      var nameEnglish = employer[0];
+      var nameEspanol = employer[1];
+      var longitude = employer[2];
+      var latitude = employer[3];
+      var category = employer[4];
 
       var skipElement = false;
 
       var element;
 
-      if (selectedLanguage === language) {
-        console.log('turning on feature :' + name);
+     // if (selectedLanguage === language) {
+        console.log('turning on feature :' + nameEspanol);
 
-        var label = name + ' - ' + category;
+        var label = nameEspanol + ' - ' + category;
 
         var geojsonFeature = {
           type: 'Feature',
           properties: {
-            name: name,
+            nameEnglish: nameEnglish,
+			nameEspanol: nameEspanol,
             category: category,
             label: label,
           },
@@ -160,13 +187,13 @@ class Gh7map extends Component {
           },
         };
 
-        this.facilitiesLayer.addData(geojsonFeature).bindPopup(function(layer) {
+        this.employersLayer.addData(geojsonFeature).bindPopup(function(layer) {
           return layer.feature.properties.label;
         });
 
         console.log('created feature:');
         console.log(geojsonFeature);
-      }
+    // }
     });
 
     console.log('added map layers');
