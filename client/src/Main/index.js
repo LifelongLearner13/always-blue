@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
 import PrivateRoute from '../common/PrivateRoute';
 import Header from '../Header';
 import Profile from '../Profile';
@@ -39,7 +40,15 @@ class Main extends Component {
             <Route
               path={'/'}
               render={props => {
-                return <h1>Main</h1>;
+                return (
+                  <Typography
+                    align={'center'}
+                    variant={'h3'}
+                    style={{ margin: '24px auto' }}
+                  >
+                    Main
+                  </Typography>
+                );
               }}
             />
           </Switch>

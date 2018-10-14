@@ -6,6 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import FaceIcon from '@material-ui/icons/FaceOutlined';
 import blue from '@material-ui/core/colors/blue';
+import { connect } from 'react-redux';
 
 const data = [
   {
@@ -90,11 +91,11 @@ const styles = theme => ({
 
 class ChatList extends Component {
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, chat } = this.props;
     const { picture } = user;
     return (
       <ol className={classes.list}>
-        {data.map((el, idx) => (
+        {chat.messageList.map((el, idx) => (
           <li
             key={idx}
             className={ClassNames(
@@ -124,4 +125,8 @@ class ChatList extends Component {
   }
 }
 
-export default withStyles(styles)(ChatList);
+const mapStateToProps = state => ({
+  chat: state.chat,
+});
+
+export default withStyles(styles)(connect(mapStateToProps)(ChatList));

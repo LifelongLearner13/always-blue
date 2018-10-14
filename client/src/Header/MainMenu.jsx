@@ -8,22 +8,19 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import FaceIcon from '@material-ui/icons/FaceOutlined';
+import CommentIcon from '@material-ui/icons/CommentOutlined';
+import MapIcon from '@material-ui/icons/MapOutlined';
 
 const styles = theme => ({
   list: {
     width: 250,
   },
+  link: {
+    textDecoration: 'none',
+    color: theme.palette.common.black,
+  },
 });
 
-/**
- * Main Menu for the application
- * @param {Object} props - All the properties passed into the component
- * @param {Object} props.classes - Customization of the Material-UI theme
- * @param {boolean} props.isOpen - True if the drawer is open
- * @param {Function} props.handleClose - Callback to handle the state of the menu drawer
- * @param {string} props.isAuthenticated - Truthy value if user is authenticated
- * @param {Object} props.history - React Router history, allows for programmatic routing
- */
 const MainMenu = ({
   classes,
   isOpen,
@@ -40,7 +37,29 @@ const MainMenu = ({
               <FaceIcon />
             </ListItemIcon>
             <ListItemText>
-              <Link to={'/profile'}>Profile</Link>
+              <Link className={classes.link} to={'/profile'}>
+                Profile
+              </Link>
+            </ListItemText>
+          </ListItem>
+          <ListItem button={true} onClick={() => history.push('/chat')}>
+            <ListItemIcon>
+              <CommentIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Link className={classes.link} to={'/chat'}>
+                Chat
+              </Link>
+            </ListItemText>
+          </ListItem>
+          <ListItem button={true} onClick={() => history.push('/map')}>
+            <ListItemIcon>
+              <MapIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Link className={classes.link} to={'/map'}>
+                Map
+              </Link>
             </ListItemText>
           </ListItem>
         </List>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -45,7 +45,7 @@ class Header extends Component {
   render() {
     const {
       classes,
-      isUserAuthenticated,
+      isAuthenticated,
       loginRequesting,
       logoutRequesting,
     } = this.props;
@@ -54,19 +54,24 @@ class Header extends Component {
       <header>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-              onClick={this.handleMenuOpen}
-            >
-              <MenuIcon />
-            </IconButton>
-            <MainMenu
-              isOpen={isMenuOpen}
-              handleClose={this.handleMenuClose}
-              isAuthenticated={isUserAuthenticated}
-            />
+            {isAuthenticated && (
+              <Fragment>
+                <IconButton
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="Menu"
+                  onClick={this.handleMenuOpen}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <MainMenu
+                  isOpen={isMenuOpen}
+                  handleClose={this.handleMenuClose}
+                  isAuthenticated={isAuthenticated}
+                />
+              </Fragment>
+            )}
+
             <Typography
               variant="headline"
               color="inherit"
@@ -75,7 +80,7 @@ class Header extends Component {
               Always Blue
             </Typography>
             <HeaderActions
-              isAuthenticated={isUserAuthenticated}
+              isAuthenticated={isAuthenticated}
               handleLogin={loginRequesting}
               handleLogOut={logoutRequesting}
             />
@@ -92,7 +97,7 @@ Header.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isUserAuthenticated: isUserAuthenticated(state),
+    isAuthenticated: isUserAuthenticated(state),
   };
 };
 
