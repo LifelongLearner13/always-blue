@@ -36,7 +36,7 @@ class Gh7map extends Component {
   }
 
   componentDidMount() {
-    this.map = L.map('map').setView([38.637584, -90.204644], 12);
+    this.map = L.map('map').setView([38.637584, -90.204644], 11);
 
     this.employersLayer = L.geoJSON().addTo(this.map);
 
@@ -107,14 +107,14 @@ class Gh7map extends Component {
     ],
 	[
         'Hispanic Chamber of Commerce',
-        'Hispanic Chamber of Commerce',
+        'Cámara de comercio hispana',
         -90.24637814964184,
         38.591820779518876,
         'employment opportunities'
     ],
 	[
         'International Institute',
-        'International Institute',
+        'Instituto internacional',
         -90.2469367302246,
         38.6029476,
         'legal help'
@@ -151,7 +151,14 @@ class Gh7map extends Component {
 		-91.55174273954212,
 		39.87594030588294,
 		'maid'
-    ]
+    ],
+	[
+		'Automotive Training Group', 
+		'grupo de entrenamiento automotriz', 
+		-90.33520774964333, 
+		38.55080407952556, 
+		'automotive'
+	] 
 	];
 	
     var selectedLanguage = this.state.language;
